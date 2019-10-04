@@ -29,6 +29,7 @@ public class JanelaCadastroProduto extends JDialog implements ActionListener{
 	private JButton salvar;
 
 	private Produto produto;
+	
 	public JanelaCadastroProduto() {
 		Sistema.getInstance();
 		initGUI();
