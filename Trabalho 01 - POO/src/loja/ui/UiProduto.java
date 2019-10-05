@@ -11,7 +11,7 @@ public class UiProduto {
 
 	private Sistema sis;
 
-	private JanelaCadastroProduto janela;
+	private JCadastroProduto janela;
 
 	public UiProduto() {
 		sis = Sistema.getInstance();
@@ -19,7 +19,7 @@ public class UiProduto {
 	}
 
 	public void inserir() {
-		janela = new JanelaCadastroProduto();
+		janela = new JCadastroProduto();
 		Produto produto = janela.getProduto();
 		if (sis.inserir(produto)) {
 			System.out.println("Produto Inserido com sucesso!!");
@@ -43,14 +43,14 @@ public class UiProduto {
 	}
 
 	public void alterar() {
-		System.out.println("-- ALTERAR DADOS --/nInforme o codigo do produto que deseja fazer as modificacoes:");
+		System.out.println("-- ALTERAR DADOS --\nInforme o codigo do produto que deseja fazer as modificacoes:");
 		int codigo = scn.nextInt();
 		while (codigo < 0) {
 			System.out.println("Informe o codigo novamente:");
 			codigo = scn.nextInt();
 		}
 		Produto produto1 = sis.buscar(codigo);
-		janela = new JanelaCadastroProduto(produto1);
+		janela = new JCadastroProduto(produto1);
 		produto1 = janela.getProduto();
 		produto1.setCodigo(codigo);
 		if (sis.alterar(produto1, codigo)) {

@@ -32,6 +32,15 @@ public class Produto {
 		this.quantEstoque = quantEstoque;
 	}
 
+	public Produto(int codigo, String nome, String descricao, double valor, double quant) {
+		// TODO Auto-generated constructor stub
+		this.codigo = codigo;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = valor;
+		this.quantEstoque = quant;
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}
