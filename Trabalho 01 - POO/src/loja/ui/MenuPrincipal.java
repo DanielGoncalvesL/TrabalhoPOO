@@ -148,8 +148,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void LimparJanelas() {
+        for (int i = 0; i < jPanel1.countComponents(); i++) {
+            jPanel1.remove(i);
+        }
+    }
+
     private void inserirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirProdutoActionPerformed
         // TODO add your handling code here:
+        LimparJanelas();
         CadastroProduto CadUser = new CadastroProduto();
         jPanel1.add(CadUser);
         CadUser.setVisible(true);
@@ -157,18 +164,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void excluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirProdutoActionPerformed
         // TODO add your handling code here:
+        LimparJanelas();
         ExcluirProduto ExcProd = new ExcluirProduto(new javax.swing.JFrame(), true);
         ExcProd.setLocationRelativeTo(null);
         ExcProd.setVisible(true);
         if (ExcProd.getCodigo() != 0) {
             if (sis.excluir(ExcProd.getCodigo())) {
                 JOptionPane.showMessageDialog(null, "Produto Excluido com Sucesso!");
+                dispose();
+                this.setVisible(true);
             } else {
-               JOptionPane.showMessageDialog(null, "Falha ao Excluir!");
+                JOptionPane.showMessageDialog(null, "Falha ao Excluir!");
+                dispose();
+                this.setVisible(true);
             }
 
         } else {
             JOptionPane.showMessageDialog(null, "Falha ao Excluir!");
+            dispose();
+            this.setVisible(true);
         }
     }//GEN-LAST:event_excluirProdutoActionPerformed
 
@@ -178,6 +192,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void alterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarProdutoActionPerformed
         // TODO add your handling code here:
+        LimparJanelas();
         CodigoAlterar CodAlt = new CodigoAlterar(new javax.swing.JFrame(), true);
         CodAlt.setLocationRelativeTo(null);
         CodAlt.setVisible(true);
@@ -196,6 +211,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void listarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarProdutoActionPerformed
         // TODO add your handling code here:
+        LimparJanelas();
         Listar listar = new Listar();
         jPanel1.add(listar);
         listar.setVisible(true);
@@ -203,6 +219,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void listarVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarVendasActionPerformed
         // TODO add your handling code here:
+        LimparJanelas();
         listarVenda listar = new listarVenda();
         jPanel1.add(listar);
         listar.setVisible(true);
