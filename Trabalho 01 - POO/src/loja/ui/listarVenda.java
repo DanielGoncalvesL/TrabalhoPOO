@@ -5,7 +5,9 @@
  */
 package loja.ui;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import loja.negocio.Produto;
 import loja.negocio.Sistema;
@@ -21,7 +23,9 @@ public class listarVenda extends javax.swing.JInternalFrame {
      * Creates new form listarVenda
      */
     public listarVenda() {
+        sis = Sistema.getInstance();
         initComponents();
+        CarregarVendas();
     }
 
     /**
@@ -37,6 +41,10 @@ public class listarVenda extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbListar = new javax.swing.JTable();
         btSair = new javax.swing.JButton();
+
+        setBorder(null);
+        setTitle("Listar Vendas");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table.png"))); // NOI18N
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -62,7 +70,7 @@ public class listarVenda extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSair)
@@ -73,7 +81,8 @@ public class listarVenda extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btSair)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -95,18 +104,17 @@ public class listarVenda extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
-    private void CarregarProdutos(){
+    private void CarregarVendas(){
         vendas = (ArrayList<Venda>) sis.listarVenda();
         DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
         modelo.setNumRows(0);
-        produtos.forEach((_item) -> {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        vendas.forEach((_item) -> {
+            String date = sdf.format(_item.getData());
             modelo.addRow(new Object[]{
                 _item.getCodigo(),
-                _item.getNome(),
-                _item.getDescricao(),
-               "R$ " + _item.getPreco(),
-                _item.getQuantEstoque()
-                
+                date,
+                _item.getValorVenda()
             });
         });
     }
@@ -118,5 +126,6 @@ public class listarVenda extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbListar;
     // End of variables declaration//GEN-END:variables
     private Sistema sis;
+    private ArrayList<Venda> vendas = new ArrayList<>();
 }
 

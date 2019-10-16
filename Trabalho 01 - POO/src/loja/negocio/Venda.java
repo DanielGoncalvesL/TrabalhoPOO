@@ -1,16 +1,33 @@
 package loja.negocio;
 
 import java.util.Date;
+import java.util.List;
 
 public class Venda {
 
 	private int codigo;
 	private Date data;
-	private Item[] itensVendidos;
+	private List<Item> itensVendidos;
+        private double valorVenda;
+
+    public Venda(int codigoVenda, Date data, List<Item> itens, String nomeCliente) {
+        this.codigo = codigoVenda;
+        this.data = data;
+        this.itensVendidos = itens;
+        this.nomeCliente = nomeCliente;
+    }
+        
 	public String getNomeCliente() {
 		return nomeCliente;
 	}
 
+        public double getValorVenda(){
+            for(int i = 0; i < itensVendidos.size(); i++){
+                valorVenda += itensVendidos.get(i).getPreco();
+            }
+            return valorVenda;
+        }
+        
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
 	}
@@ -33,11 +50,11 @@ public class Venda {
 		this.data = data;
 	}
 
-	public Item[] getItensVendidos() {
+	public List<Item> getItensVendidos() {
 		return itensVendidos;
 	}
 
-	public void setItensVendidos(Item[] itensVendidos) {
+	public void setItensVendidos(List<Item> itensVendidos) {
 		this.itensVendidos = itensVendidos;
 	}
 }

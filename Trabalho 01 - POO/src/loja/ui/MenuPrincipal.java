@@ -101,6 +101,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         listarVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table.png"))); // NOI18N
         listarVendas.setText("Listar Vendas");
+        listarVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listarVendasActionPerformed(evt);
+            }
+        });
         administrador.add(listarVendas);
 
         listarVendasDia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table.png"))); // NOI18N
@@ -195,6 +200,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1.add(listar);
         listar.setVisible(true);
     }//GEN-LAST:event_listarProdutoActionPerformed
+
+    private void listarVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarVendasActionPerformed
+        // TODO add your handling code here:
+        listarVenda listar = new listarVenda();
+        jPanel1.add(listar);
+        listar.setVisible(true);
+    }//GEN-LAST:event_listarVendasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu administrador;

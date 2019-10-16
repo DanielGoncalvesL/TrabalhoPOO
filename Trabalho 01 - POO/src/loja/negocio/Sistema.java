@@ -57,7 +57,7 @@ public final class Sistema {
 		return cVenda.inserirCarrinho(item);
 	}
 
-	public Venda[] listarVenda() {
+	public List<Venda> listarVenda() {
 		return cVenda.listar();
 	}
 

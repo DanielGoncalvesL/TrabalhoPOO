@@ -1,5 +1,6 @@
 package loja.negocio;
 
+import java.util.List;
 import loja.dados.RepoVendaArray;
 
 public class ControladorVenda {
@@ -17,7 +18,7 @@ public class ControladorVenda {
 		return repovenda.criarItem(produto, quantidade);
 	}
 	
-	public Venda[] listar() {
+	public List<Venda> listar() {
 		return repovenda.listarVenda();
 	}
 	

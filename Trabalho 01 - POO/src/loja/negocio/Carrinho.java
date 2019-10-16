@@ -1,14 +1,17 @@
 package loja.negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Carrinho {
     
-	private Item[] itens = new Item[10];
+	private List<Item> itens = new ArrayList<>();
 
-	public Item[] getItens() {
+	public List<Item> getItens() {
 		return itens;
 	}
 
-	public void setItens(Item[] itens) {
-		this.itens = itens;
+	public void setItens(Item item) {
+		itens.add(item);
 	}
 }
