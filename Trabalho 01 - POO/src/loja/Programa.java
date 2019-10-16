@@ -1,13 +1,14 @@
 package loja;
 
-import loja.ui.UiPrincipal;
+import loja.ui.MenuPrincipal;
 
 public class Programa {
 	public static void main(String[] args) {
 		
-		UiPrincipal uiPrincipal = new UiPrincipal();
+		MenuPrincipal menuPrincipal = new MenuPrincipal();
 		
-		uiPrincipal.InterfaceInicial();
+                menuPrincipal.setLocationRelativeTo(null);
+		menuPrincipal.setVisible(true);
 		
 	}
 

@@ -11,7 +11,7 @@ public class UiProduto {
 
 	private Sistema sis;
 
-	private JCadastroProduto janela;
+	private CadastroProduto janela;
 
 	public UiProduto() {
 		sis = Sistema.getInstance();
@@ -19,7 +19,7 @@ public class UiProduto {
 	}
 
 	public void inserir() {
-		janela = new JCadastroProduto();
+		janela = new CadastroProduto();
 		Produto produto = janela.getProduto();
 		if (sis.inserir(produto)) {
 			System.out.println("Produto Inserido com sucesso!!");
@@ -50,7 +50,7 @@ public class UiProduto {
 			codigo = scn.nextInt();
 		}
 		Produto produto1 = sis.buscar(codigo);
-		janela = new JCadastroProduto(produto1);
+		janela = new CadastroProduto(produto1);
 		produto1 = janela.getProduto();
 		produto1.setCodigo(codigo);
 		if (sis.alterar(produto1, codigo)) {

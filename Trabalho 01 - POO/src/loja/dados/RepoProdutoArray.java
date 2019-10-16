@@ -5,7 +5,7 @@ import loja.negocio.Venda;
 
 public class RepoProdutoArray {
 	private Produto[] produtos = new Produto[10];
-	private int codigo = 0;
+	private int codigo = 1;
 
 	public boolean inserir(Produto produto) {
 		if (produto != null) {
