@@ -27,6 +27,12 @@ public class listarVenda extends javax.swing.JInternalFrame {
         initComponents();
         CarregarVendas();
     }
+    
+     public listarVenda(String Data) {
+        sis = Sistema.getInstance();
+        initComponents();
+        CarregarVendas();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

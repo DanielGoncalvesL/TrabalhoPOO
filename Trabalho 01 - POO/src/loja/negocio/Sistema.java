@@ -66,7 +66,7 @@ public final class Sistema {
 		return cProduto.abaterEstoque(abaterEstoque);
 	}
 
-	public Venda[] listarData(String data) {
+	public List<Venda> listarData(String data) {
 		return cVenda.listarData(data);
 	}
 	

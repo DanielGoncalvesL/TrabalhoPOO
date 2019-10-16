@@ -48,7 +48,7 @@ public class RepoVendaArray {
         return null;
     }
 
-    public Venda[] listarData(String data) {
+    public List<Venda> listarData(String data) {
         if (vendas != null) {
             Venda[] venda = new Venda[10];
             int j = 0;

@@ -74,6 +74,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Listar Vendas no Dia"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listarVendasDiaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="buscarVenda">
               <Properties>

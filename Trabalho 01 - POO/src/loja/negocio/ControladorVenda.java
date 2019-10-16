@@ -26,7 +26,7 @@ public class ControladorVenda {
 		return repovenda.concluirVenda(nomeCliente);
 	}
 	
-	public Venda[] listarData(String data) {
+	public List<Venda> listarData(String data) {
 		return repovenda.listarData(data);
 	}
 	

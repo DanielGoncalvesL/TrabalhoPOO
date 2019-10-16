@@ -110,6 +110,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         listarVendasDia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table.png"))); // NOI18N
         listarVendasDia.setText("Listar Vendas no Dia");
+        listarVendasDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listarVendasDiaActionPerformed(evt);
+            }
+        });
         administrador.add(listarVendasDia);
 
         buscarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/zoom.png"))); // NOI18N
@@ -154,6 +159,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }
 
+    private void ReiniciarJanela() {
+        dispose();
+        this.setVisible(true);
+    }
+
     private void inserirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirProdutoActionPerformed
         // TODO add your handling code here:
         LimparJanelas();
@@ -168,21 +178,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ExcluirProduto ExcProd = new ExcluirProduto(new javax.swing.JFrame(), true);
         ExcProd.setLocationRelativeTo(null);
         ExcProd.setVisible(true);
+         ReiniciarJanela();
         if (ExcProd.getCodigo() != 0) {
             if (sis.excluir(ExcProd.getCodigo())) {
                 JOptionPane.showMessageDialog(null, "Produto Excluido com Sucesso!");
-                dispose();
-                this.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Falha ao Excluir!");
-                dispose();
-                this.setVisible(true);
             }
 
         } else {
             JOptionPane.showMessageDialog(null, "Falha ao Excluir!");
-            dispose();
-            this.setVisible(true);
         }
     }//GEN-LAST:event_excluirProdutoActionPerformed
 
@@ -196,6 +201,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         CodigoAlterar CodAlt = new CodigoAlterar(new javax.swing.JFrame(), true);
         CodAlt.setLocationRelativeTo(null);
         CodAlt.setVisible(true);
+        ReiniciarJanela();
         if (CodAlt.getCodigo() != 0) {
             Produto produto = sis.buscar(CodAlt.getCodigo());
             if (produto != null) {
@@ -224,6 +230,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1.add(listar);
         listar.setVisible(true);
     }//GEN-LAST:event_listarVendasActionPerformed
+
+    private void listarVendasDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarVendasDiaActionPerformed
+        // TODO add your handling code here:
+        LimparJanelas();
+        DataVenda data = new DataVenda(new javax.swing.JFrame(), true);
+        data.setLocationRelativeTo(null);
+        data.setVisible(true);
+        ReiniciarJanela();
+        String date = data.getData();
+        if(date != null){
+            listarVenda listar = new listarVenda(date);
+            jPanel1.add(listar);
+            listar.setVisible(true);
+        }
+    }//GEN-LAST:event_listarVendasDiaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu administrador;

@@ -193,33 +193,33 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         }
 
         if (ok) {
-            if(produto1 == null){
-            String nome = tfNome.getText();
-            double preco = Double.parseDouble(tfPreco.getText());
-            double quant = Double.parseDouble(tfQuant.getText());
-            String descricao = tfMarca.getText();
-            produto = new Produto(nome, descricao, preco, quant);
-            if (sis.inserir(produto)) {
-                JOptionPane.showMessageDialog(null, "Produto Inserido com Sucesso!");
-                dispose();
+            if (produto1 == null) {
+                String nome = tfNome.getText();
+                double preco = Double.parseDouble(tfPreco.getText());
+                double quant = Double.parseDouble(tfQuant.getText());
+                String descricao = tfMarca.getText();
+                produto = new Produto(nome, descricao, preco, quant);
+                if (sis.inserir(produto)) {
+                    JOptionPane.showMessageDialog(null, "Produto Inserido com Sucesso!");
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "O Produto não foi Inserido!");
+                    dispose();
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "O Produto não foi Inserido!");
-                dispose();
-            }
-            }else{
-            int codigo = produto1.getCodigo();
-            String nome = tfNome.getText();
-            double preco = Double.parseDouble(tfPreco.getText());
-            double quant = Double.parseDouble(tfQuant.getText());
-            String descricao = tfMarca.getText();
-            produto = new Produto(codigo, nome, descricao, preco, quant);
-            if (sis.alterar(produto, codigo)) {
-                JOptionPane.showMessageDialog(null, "Produto Alterado com Sucesso!");
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "O Produto não foi Alterado!");
-                dispose();
-            }
+                int codigo = produto1.getCodigo();
+                String nome = tfNome.getText();
+                double preco = Double.parseDouble(tfPreco.getText());
+                double quant = Double.parseDouble(tfQuant.getText());
+                String descricao = tfMarca.getText();
+                produto = new Produto(codigo, nome, descricao, preco, quant);
+                if (sis.alterar(produto, codigo)) {
+                    JOptionPane.showMessageDialog(null, "Produto Alterado com Sucesso!");
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "O Produto não foi Alterado!");
+                    dispose();
+                }
             }
         } else {
             JOptionPane.showMessageDialog(this, "Preencha os campos destacados!");
