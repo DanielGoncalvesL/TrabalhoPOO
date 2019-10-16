@@ -92,6 +92,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         listarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table.png"))); // NOI18N
         listarProduto.setText("Listar Produtos");
+        listarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listarProdutoActionPerformed(evt);
+            }
+        });
         administrador.add(listarProduto);
 
         listarVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table.png"))); // NOI18N
@@ -147,6 +152,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void excluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirProdutoActionPerformed
         // TODO add your handling code here:
+        ExcluirProduto ExcProd = new ExcluirProduto(new javax.swing.JFrame(), true);
+        ExcProd.setLocationRelativeTo(null);
+        ExcProd.setVisible(true);
+        if (ExcProd.getCodigo() != 0) {
+            if (sis.excluir(ExcProd.getCodigo())) {
+                JOptionPane.showMessageDialog(null, "Produto Excluido com Sucesso!");
+            } else {
+               JOptionPane.showMessageDialog(null, "Falha ao Excluir!");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Falha ao Excluir!");
+        }
     }//GEN-LAST:event_excluirProdutoActionPerformed
 
     private void buscarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarVendaActionPerformed
@@ -171,6 +189,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_alterarProdutoActionPerformed
 
+    private void listarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarProdutoActionPerformed
+        // TODO add your handling code here:
+        Listar listar = new Listar();
+        jPanel1.add(listar);
+        listar.setVisible(true);
+    }//GEN-LAST:event_listarProdutoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu administrador;
     private javax.swing.JMenuItem alterarProduto;
@@ -185,5 +210,5 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem listarVendasDia;
     private javax.swing.JMenuItem realizarVenda;
     // End of variables declaration//GEN-END:variables
-    private Sistema sis;
+    private final Sistema sis;
 }

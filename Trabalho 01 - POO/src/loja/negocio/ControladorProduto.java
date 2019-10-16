@@ -1,10 +1,11 @@
 package loja.negocio;
 
+import java.util.List;
 import loja.dados.RepoProdutoArray;
 
 public class ControladorProduto {
 	
-	private RepoProdutoArray reproduto;
+	private final RepoProdutoArray reproduto;
 
 	public ControladorProduto() {
 		reproduto = new RepoProdutoArray();
@@ -26,11 +27,11 @@ public class ControladorProduto {
 		return reproduto.buscar(codigo);
 	}
 
-	public Produto[] listar() {
+	public List<Produto> listar() {
 		return reproduto.listar();
 	}
 
-	public Produto[] listarNome() {
+	public List<Produto> listarNome() {
 		return reproduto.listarNome();
 	}
 	

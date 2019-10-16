@@ -1,9 +1,11 @@
 package loja.negocio;
 
-public class Sistema {
-	private ControladorProduto cProduto;
+import java.util.List;
 
-	private ControladorVenda cVenda;
+public final class Sistema {
+	private final ControladorProduto cProduto;
+
+	private final ControladorVenda cVenda;
 
 	private static Sistema instance;
 
@@ -35,11 +37,11 @@ public class Sistema {
 		return cProduto.buscar(codigo);
 	}
 
-	public Produto[] listar() {
+	public List<Produto> listar() {
 		return cProduto.listar();
 	}
 
-	public Produto[] listarNome() {
+	public List<Produto> listarNome() {
 		return cProduto.listarNome();
 	}
 
@@ -78,16 +80,16 @@ public class Sistema {
 
 	public void init() {
 		this.inserir(new Produto("Arroz", "Rei Arthur", 15, 30));
-		this.inserir(new Produto("Feijão", "Supang", 3.5, 30));
-		this.inserir(new Produto("Macarrão", "Renata", 4, 30));
+		this.inserir(new Produto("Feijï¿½o", "Supang", 3.5, 30));
+		this.inserir(new Produto("Macarrï¿½o", "Renata", 4, 30));
 		this.inserir(new Produto("Canjiquinha", "Yoki", 2, 30));
-		this.inserir(new Produto("Açucar", "União", 8, 30));
+		this.inserir(new Produto("Aï¿½ucar", "Uniï¿½o", 8, 30));
 
 		this.inserirCarrinho(criarItem(buscarNome("Arroz"), 1));
 		this.inserirCarrinho(criarItem(buscarNome("Canjiquinha"), 1));
 		this.concluirVenda("Daniel");
 
-		this.inserirCarrinho(criarItem(buscarNome("Feijão"), 1));
+		this.inserirCarrinho(criarItem(buscarNome("Feijï¿½o"), 1));
 		this.concluirVenda("Luciano");
 	}
 }

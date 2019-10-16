@@ -1,7 +1,9 @@
 package loja.dados;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import loja.negocio.Carrinho;
 import loja.negocio.Item;
@@ -10,21 +12,21 @@ import loja.negocio.Venda;
 
 public class RepoVendaArray {
 
-	private Venda[] vendas = new Venda[10];
-	private Item[] itens = new Item[10];
+	private final List<Venda> vendas = new ArrayList<>();
+	private List<Item> itens = new ArrayList<>();
 	private Carrinho carrinho = new Carrinho();
 	private int codigoVenda = 0;
 
 	public boolean inserirCarrinho(Item item) {
 		if (item != null) {
 			for (int i = 0; i < carrinho.getItens().length; i++) {
-				if (itens[i] != null && itens[i].getProduto().getCodigo() == item.getProduto().getCodigo()) {
-					itens[i].setQuantidade(item.getQuantidade() + itens[i].getQuantidade());
+				if (itens.get(i) != null && itens.get(i).getProduto().getCodigo() == item.getProduto().getCodigo()) {
+					itens.get(i).setQuantidade(item.getQuantidade() + itens.get(i).getQuantidade());
 					return true;
 				} else {
-					if (itens[i] == null) {
-						itens[i] = item;
-						carrinho.setItens(itens);
+					if (itens.get(i) == null) {
+						itens.set(i, item);
+						carrinho.setItens(itens.get(i));
 						return true;
 					}
 				}
