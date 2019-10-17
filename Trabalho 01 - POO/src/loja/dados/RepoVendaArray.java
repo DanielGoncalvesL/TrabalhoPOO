@@ -50,20 +50,15 @@ public class RepoVendaArray {
 
     public List<Venda> listarData(String data) {
         if (vendas != null) {
-            Venda[] venda = new Venda[10];
+            List<Venda> venda = new ArrayList<>();
             int j = 0;
-            for (int i = 0; i < vendas.size(); i++) {
-                if (vendas.get(i) != null) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    String date = sdf.format(vendas.get(i).getData());
-                    if (date.equals(data)) {
-                        if (venda[j] == null && j < venda.length) {
-                            vendas.set(i, vendas.get(i));
-                            j++;
-                        }
-                    }
+            vendas.stream().filter((venda1) -> (venda1 != null)).forEach((venda1) -> {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String date = sdf.format(venda1.getData());
+                if (date.equals(data)) {
+                    venda.add(venda1);
                 }
-            }
+            });
             return venda;
         } else {
             return null;
@@ -72,9 +67,9 @@ public class RepoVendaArray {
 
     public Venda listarCodigo(int codigo) {
         if (vendas != null) {
-            for (int i = 0; i < vendas.size(); i++) {
-                if (vendas.get(i) != null && vendas.get(i).getCodigo() == codigo) {
-                    return vendas.get(i);
+            for (Venda venda : vendas) {
+                if (venda != null && venda.getCodigo() == codigo) {
+                    return venda;
                 }
             }
         }

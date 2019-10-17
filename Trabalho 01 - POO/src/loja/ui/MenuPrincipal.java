@@ -178,21 +178,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ExcluirProduto ExcProd = new ExcluirProduto(new javax.swing.JFrame(), true);
         ExcProd.setLocationRelativeTo(null);
         ExcProd.setVisible(true);
-         ReiniciarJanela();
+        ReiniciarJanela();
         if (ExcProd.getCodigo() != 0) {
             if (sis.excluir(ExcProd.getCodigo())) {
                 JOptionPane.showMessageDialog(null, "Produto Excluido com Sucesso!");
             } else {
                 JOptionPane.showMessageDialog(null, "Falha ao Excluir!");
             }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Falha ao Excluir!");
-        }
+        } 
     }//GEN-LAST:event_excluirProdutoActionPerformed
 
     private void buscarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarVendaActionPerformed
         // TODO add your handling code here:
+        LimparJanelas();
+        CodigoBuscar codBus = new CodigoBuscar(new javax.swing.JFrame(), true);
+        codBus.setLocationRelativeTo(null);
+        codBus.setVisible(true);
+        ReiniciarJanela();
+        BuscarVenda listar = new BuscarVenda(codBus.getCodigo());
+        jPanel1.add(listar);
+        listar.setVisible(true);
     }//GEN-LAST:event_buscarVendaActionPerformed
 
     private void alterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarProdutoActionPerformed

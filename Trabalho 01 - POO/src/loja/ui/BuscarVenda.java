@@ -7,7 +7,6 @@ package loja.ui;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import loja.negocio.Sistema;
@@ -15,24 +14,20 @@ import loja.negocio.Venda;
 
 /**
  *
- * @author marcelle
+ * @author Daniel
  */
-public class listarVenda extends javax.swing.JInternalFrame {
+public class BuscarVenda extends javax.swing.JInternalFrame {
+    private Sistema sis;
+    private Venda venda;
 
     /**
-     * Creates new form listarVenda
+     * Creates new form BuscarVenda
+     * @param Codigo
      */
-    public listarVenda() {
+    public BuscarVenda(int Codigo) {
         sis = Sistema.getInstance();
         initComponents();
-        CarregarVendas();
-    }
-
-    public listarVenda(String Data) {
-        sis = Sistema.getInstance();
-        setTitle("Listar por Data");
-        initComponents();
-        CarregarVendas(Data);
+        CarregarVendas(Codigo);
     }
 
     /**
@@ -45,13 +40,14 @@ public class listarVenda extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbListar = new javax.swing.JTable();
         btSair = new javax.swing.JButton();
 
         setBorder(null);
-        setTitle("Listar Vendas");
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table.png"))); // NOI18N
+        setTitle("Buscar Produto");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/zoom.png"))); // NOI18N
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -60,7 +56,7 @@ public class listarVenda extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Data da Venda", "Valor da Venda"
+                "ID", "Data da Venda", "Valor da Venda", "Nome Cliente"
             }
         ));
         jScrollPane1.setViewportView(tbListar);
@@ -73,23 +69,33 @@ public class listarVenda extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSair)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btSair)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -111,46 +117,29 @@ public class listarVenda extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
-    private void CarregarVendas() {
-        vendas = (ArrayList<Venda>) sis.listarVenda();
-        DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
-        modelo.setNumRows(0);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        vendas.forEach((_item) -> {
-            String date = sdf.format(_item.getData());
-            modelo.addRow(new Object[]{
-                _item.getCodigo(),
-                date,
-                _item.getValorVenda()
-            });
-        });
-    }
-
-    private void CarregarVendas(String Data) {
-        vendas = (ArrayList<Venda>) sis.listarData(Data);
-        if (vendas != null) {
+      private void CarregarVendas(int Codigo) {
+        venda = sis.listarCodigo(Codigo) ;
+        if (venda != null) {
             DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
             modelo.setNumRows(0);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            vendas.forEach((_item) -> {
-                String date = sdf.format(_item.getData());
+                String date = sdf.format(venda.getData());
                 modelo.addRow(new Object[]{
-                    _item.getCodigo(),
+                    venda.getCodigo(),
                     date,
-                    _item.getValorVenda()
+                    venda.getValorVenda(),
+                    venda.getNomeCliente()
                 });
-            });
         } else {
-            JOptionPane.showMessageDialog(null, "Não tem Vendas Registradas nesse dia!");
+            JOptionPane.showMessageDialog(null, "Não tem Venda com esse Código!");
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSair;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbListar;
     // End of variables declaration//GEN-END:variables
-    private Sistema sis;
-    private ArrayList<Venda> vendas = new ArrayList<>();
 }
