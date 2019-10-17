@@ -133,6 +133,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         realizarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/basket_add.png"))); // NOI18N
         realizarVenda.setText("Realizar Venda");
+        realizarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                realizarVendaActionPerformed(evt);
+            }
+        });
         funcionario.add(realizarVenda);
 
         jMenuBar1.add(funcionario);
@@ -250,6 +255,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             listar.setVisible(true);
         }
     }//GEN-LAST:event_listarVendasDiaActionPerformed
+
+    private void realizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarVendaActionPerformed
+        // TODO add your handling code here:
+        LimparJanelas();
+        RealizarVenda venda = new RealizarVenda();
+        jPanel1.add(venda);
+        venda.setVisible(true);
+    }//GEN-LAST:event_realizarVendaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu administrador;
