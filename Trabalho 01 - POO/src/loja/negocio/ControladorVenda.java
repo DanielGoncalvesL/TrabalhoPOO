@@ -37,5 +37,9 @@ public class ControladorVenda {
 	public Carrinho listarCarrinho() {
 		return repovenda.listarCarrinho();
 	}
+        
+        public void limparCarrinho(){
+            repovenda.limparCarrinho();
+        }
 	
 }

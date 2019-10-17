@@ -62,7 +62,15 @@ public class listarVenda extends javax.swing.JInternalFrame {
             new String [] {
                 "ID", "Data da Venda", "Valor da Venda"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbListar);
 
         btSair.setBackground(new java.awt.Color(255, 0, 51));

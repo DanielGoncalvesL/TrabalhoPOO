@@ -6,6 +6,8 @@
 package loja.ui;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import loja.negocio.Carrinho;
 import loja.negocio.Item;
 import loja.negocio.Produto;
@@ -16,6 +18,8 @@ import loja.negocio.Sistema;
  * @author marcelle
  */
 public class RealizarVenda extends javax.swing.JInternalFrame {
+
+    private Carrinho carrinho;
 
     /**
      * Creates new form RealizarVenda
@@ -43,7 +47,7 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         tfQuantidade = new javax.swing.JTextField();
         btAdicionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbListar = new javax.swing.JTable();
         tfTotal = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btRealizarCompra = new javax.swing.JButton();
@@ -71,7 +75,7 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbListar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -87,7 +91,9 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbListar);
+
+        tfTotal.setEditable(false);
 
         jLabel4.setText("Preço Total");
 
@@ -212,9 +218,11 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
                 if (produto != null) {
                     if (produto.getQuantEstoque() >= quantidade) {
                         Item item = sis.criarItem(produto, quantidade);
-                        if(item != null){
-                            if(sis.inserirCarrinho(item)){
-                                
+                        if (item != null) {
+                            if (sis.inserirCarrinho(item)) {
+                                JOptionPane.showMessageDialog(null, "Produto Adicionado com Sucesso no Carrinho!!");
+                                CarregarItens();
+                                PrecoTotal();
                             }
                         }
                     }
@@ -223,9 +231,38 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btAdicionarActionPerformed
 
+    private void PrecoTotal() {
+        double preco = 0;
+        if (carrinho != null) {
+            preco = carrinho.getItens().stream().map((item) -> item.getPreco() * item.getQuantidade()).reduce(preco, (accumulator, _item) -> accumulator + _item);
+        }
+        tfTotal.setText("R$ " + Double.toString(preco));
+    }
+
+    private void CarregarItens() {
+        carrinho = sis.listarCarrinho();
+        if (carrinho != null) {
+            DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
+            modelo.setNumRows(0);
+            carrinho.getItens().forEach((_item) -> {
+                modelo.addRow(new Object[]{
+                    _item.getProduto().getNome(),
+                    "R$ " + _item.getPreco() * _item.getQuantidade(),
+                    _item.getQuantidade()
+                });
+            });
+        }
+    }
+
+    private void ReiniciarJanela() {
+        dispose();
+        this.setVisible(true);
+    }
+
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         // TODO add your handling code here:
         dispose();
+        sis.limparCarrinho();
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btRealizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRealizarCompraActionPerformed
@@ -245,7 +282,7 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbListar;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfQuantidade;
     private javax.swing.JTextField tfTotal;

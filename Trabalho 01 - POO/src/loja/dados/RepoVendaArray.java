@@ -26,6 +26,7 @@ public class RepoVendaArray {
                 }
             }
             carrinho.getItens().add(item);
+            return true;
         }
         return false;
     }
@@ -94,6 +95,11 @@ public class RepoVendaArray {
             return venda;
         }
         return null;
+    }
+    
+    public void limparCarrinho(){
+    carrinho = new Carrinho();
+    itens = new ArrayList<>();
     }
 
 }

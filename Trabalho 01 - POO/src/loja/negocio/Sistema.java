@@ -77,6 +77,10 @@ public final class Sistema {
 	public Carrinho listarCarrinho() {
 		return cVenda.listarCarrinho();
 	}
+        
+        public void limparCarrinho(){
+            cVenda.limparCarrinho();
+        }
 
 	public void init() {
 		this.inserir(new Produto("Arroz", "Rei Arthur", 15, 30));

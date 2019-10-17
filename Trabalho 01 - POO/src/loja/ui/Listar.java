@@ -54,7 +54,15 @@ public class Listar extends javax.swing.JInternalFrame {
             new String [] {
                 "ID", "Nome", "Marca", "Preço", "Quantidade"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbListar);
 
         btSair.setBackground(new java.awt.Color(255, 0, 51));
