@@ -38,6 +38,10 @@ public class ControladorProduto {
     public Produto buscarNome(String nome) {
         return reproduto.buscarNome(nome);
     }
+    
+    public List<Produto> FiltrarNome(String nome) {
+        return reproduto.FiltrarNome(nome);
+    }
 
     public boolean abaterEstoque(Venda abaterEstoque) {
         return reproduto.abaterEstoque(abaterEstoque);

@@ -105,6 +105,19 @@ public class RepoProdutoArray {
         }
         return null;
     }
+    
+     public List<Produto> FiltrarNome(String nome) {
+        if (nome != null) {
+            List<Produto> prod = new ArrayList<>();
+            for (Produto produto : produtos) {
+                if (produto != null && produto.getNome().equals(nome)) {
+                    prod.add(produto);
+                    return prod;
+                }
+            }
+        }
+        return null;
+    }
 
     public boolean abaterEstoque(Venda abaterEstoque) {
         if (abaterEstoque != null && produtos != null) {

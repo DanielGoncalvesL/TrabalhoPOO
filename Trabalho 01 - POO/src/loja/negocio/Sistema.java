@@ -50,6 +50,10 @@ public final class Sistema {
     public Produto buscarNome(String nome) {
         return cProduto.buscarNome(nome);
     }
+    
+    public List<Produto> FiltrarNome(String nome) {
+        return cProduto.FiltrarNome(nome);
+    }
 
     public Item criarItem(Produto produto, double quantidade) {
         return cVenda.criarItem(produto, quantidade);

@@ -7,6 +7,7 @@ package loja.ui;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import loja.negocio.Produto;
@@ -155,17 +156,19 @@ public class Listar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btFiltrarActionPerformed
 
     private void CarregarProduto(String nome) {
-        Produto produto;
-        produto = sis.buscarNome(nome);
-        if (produto != null) {
+        List<Produto> produtos = (List<Produto>) sis.FiltrarNome(nome);
+        if (produtos != null) {
             DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
             modelo.setNumRows(0);
-            modelo.addRow(new Object[]{
-                produto.getCodigo(),
-                produto.getNome(),
-                produto.getDescricao(),
-                "R$ " + produto.getPreco(),
-                produto.getQuantEstoque()
+            produtos.forEach((_item) -> {
+                modelo.addRow(new Object[]{
+                    _item.getCodigo(),
+                    _item.getNome(),
+                    _item.getDescricao(),
+                    "R$ " + _item.getPreco(),
+                    _item.getQuantEstoque()
+
+                });
             });
         }
     }
