@@ -11,17 +11,14 @@ import java.awt.Color;
  *
  * @author Daniel
  */
-public class ExcluirProduto extends javax.swing.JDialog {
+public class ExcluirProdutoCarrinho extends javax.swing.JDialog {
 
-    private int codigo;
+    private int codigo = -1;
 
     /**
-     * Creates new form ExcluirProduto
-     *
-     * @param parent
-     * @param modal
+     * Creates new form ExcluirProdutoCarrinho
      */
-    public ExcluirProduto(java.awt.Frame parent, boolean modal) {
+    public ExcluirProdutoCarrinho(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -36,16 +33,22 @@ public class ExcluirProduto extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        tfExcluir = new javax.swing.JTextField();
+        tfCodigo = new javax.swing.JTextField();
         btExcluir = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Excluir Produto");
+        setTitle("Excluir Produto do Carrinho");
 
-        jLabel1.setText("Informe o Código do Produto que deseja excluir");
+        jLabel1.setText("Informe o Código do Produto que Deseja Excluir ");
 
-        btExcluir.setBackground(new java.awt.Color(255, 0, 51));
+        tfCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfCodigoActionPerformed(evt);
+            }
+        });
+
+        btExcluir.setBackground(java.awt.Color.red);
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,8 +67,8 @@ public class ExcluirProduto extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(84, 84, 84)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(89, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btCancelar)
@@ -73,52 +76,56 @@ public class ExcluirProduto extends javax.swing.JDialog {
                         .addComponent(btExcluir))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfExcluir)))
-                .addContainerGap(87, Short.MAX_VALUE))
+                        .addComponent(tfCodigo)))
+                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
+                .addGap(89, 89, 89)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btExcluir)
                     .addComponent(btCancelar))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+    private void tfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCodigoActionPerformed
         // TODO add your handling code here:
-        boolean ok = true;
-        if (tfExcluir.getText().equals("")) {
-            ok = false;
-            tfExcluir.setBackground(Color.PINK);
-        }
-        if (ok) {
-            codigo = Integer.parseInt(tfExcluir.getText());
-            dispose();
-        }
-    }//GEN-LAST:event_btExcluirActionPerformed
+    }//GEN-LAST:event_tfCodigoActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btCancelarActionPerformed
 
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        // TODO add your handling code here:
+        boolean ok = true;
+        if (tfCodigo.getText().equals("")) {
+            ok = false;
+            tfCodigo.setBackground(Color.PINK);
+        }
+        if (ok) {
+            codigo = Integer.parseInt(tfCodigo.getText());
+            dispose();
+        }
+    }//GEN-LAST:event_btExcluirActionPerformed
+
     public int getCodigo() {
         return codigo;
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField tfExcluir;
+    private javax.swing.JTextField tfCodigo;
     // End of variables declaration//GEN-END:variables
-
 }

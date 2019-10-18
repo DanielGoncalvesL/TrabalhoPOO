@@ -6,7 +6,6 @@
 package loja.ui;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import loja.negocio.Sistema;
@@ -17,11 +16,13 @@ import loja.negocio.Venda;
  * @author Daniel
  */
 public class BuscarVenda extends javax.swing.JInternalFrame {
+
     private Sistema sis;
     private Venda venda;
 
     /**
      * Creates new form BuscarVenda
+     *
      * @param Codigo
      */
     public BuscarVenda(int Codigo) {
@@ -117,19 +118,19 @@ public class BuscarVenda extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
-      private void CarregarVendas(int Codigo) {
-        venda = sis.listarCodigo(Codigo) ;
+    private void CarregarVendas(int Codigo) {
+        venda = sis.listarCodigo(Codigo);
         if (venda != null) {
             DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
             modelo.setNumRows(0);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                String date = sdf.format(venda.getData());
-                modelo.addRow(new Object[]{
-                    venda.getCodigo(),
-                    date,
-                    venda.getValorVenda(),
-                    venda.getNomeCliente()
-                });
+            String date = sdf.format(venda.getData());
+            modelo.addRow(new Object[]{
+                venda.getCodigo(),
+                date,
+                venda.getValorVenda(),
+                venda.getNomeCliente()
+            });
         } else {
             JOptionPane.showMessageDialog(null, "Não tem Venda com esse Código!");
         }

@@ -21,6 +21,7 @@ public class Listar extends javax.swing.JInternalFrame {
      */
     public Listar() {
         sis = Sistema.getInstance();
+        sis.limparCarrinho();
         initComponents();
         CarregarProdutos();
     }

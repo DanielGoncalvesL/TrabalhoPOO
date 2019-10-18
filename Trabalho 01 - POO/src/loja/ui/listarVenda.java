@@ -24,12 +24,14 @@ public class listarVenda extends javax.swing.JInternalFrame {
      */
     public listarVenda() {
         sis = Sistema.getInstance();
+        sis.limparCarrinho();
         initComponents();
         CarregarVendas();
     }
 
     public listarVenda(String Data) {
         sis = Sistema.getInstance();
+        sis.limparCarrinho();
         setTitle("Listar por Data");
         initComponents();
         CarregarVendas(Data);

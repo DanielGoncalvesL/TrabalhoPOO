@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Venda {
 
-	private int codigo;
-	private Date data;
-	private List<Item> itensVendidos;
-        private double valorVenda;
+    private int codigo;
+    private Date data;
+    private List<Item> itensVendidos;
+    private double valorVenda;
 
     public Venda(int codigoVenda, Date data, List<Item> itens, String nomeCliente) {
         this.codigo = codigoVenda;
@@ -16,45 +16,45 @@ public class Venda {
         this.itensVendidos = itens;
         this.nomeCliente = nomeCliente;
     }
-        
-	public String getNomeCliente() {
-		return nomeCliente;
-	}
 
-        public double getValorVenda(){
-            for(int i = 0; i < itensVendidos.size(); i++){
-                valorVenda += itensVendidos.get(i).getPreco();
-            }
-            return valorVenda;
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public double getValorVenda() {
+        for (int i = 0; i < itensVendidos.size(); i++) {
+            valorVenda += itensVendidos.get(i).getPreco();
         }
-        
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
-	}
+        return valorVenda;
+    }
 
-	private String nomeCliente;
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
 
-	public int getCodigo() {
-		return codigo;
-	}
+    private String nomeCliente;
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
-	}
+    public int getCodigo() {
+        return codigo;
+    }
 
-	public Date getData() {
-		return data;
-	}
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
 
-	public void setData(Date data) {
-		this.data = data;
-	}
+    public Date getData() {
+        return data;
+    }
 
-	public List<Item> getItensVendidos() {
-		return itensVendidos;
-	}
+    public void setData(Date data) {
+        this.data = data;
+    }
 
-	public void setItensVendidos(List<Item> itensVendidos) {
-		this.itensVendidos = itensVendidos;
-	}
+    public List<Item> getItensVendidos() {
+        return itensVendidos;
+    }
+
+    public void setItensVendidos(List<Item> itensVendidos) {
+        this.itensVendidos = itensVendidos;
+    }
 }

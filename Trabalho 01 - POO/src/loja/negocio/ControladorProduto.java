@@ -4,42 +4,42 @@ import java.util.List;
 import loja.dados.RepoProdutoArray;
 
 public class ControladorProduto {
-	
-	private final RepoProdutoArray reproduto;
 
-	public ControladorProduto() {
-		reproduto = new RepoProdutoArray();
-	}
+    private final RepoProdutoArray reproduto;
 
-	public boolean inserir(Produto produto) {
-		return reproduto.inserir(produto);
-	}
+    public ControladorProduto() {
+        reproduto = new RepoProdutoArray();
+    }
 
-	public boolean excluir(int codigo) {
-		return reproduto.excluir(codigo);
-	}
+    public boolean inserir(Produto produto) {
+        return reproduto.inserir(produto);
+    }
 
-	public boolean alterar(Produto produto, int codigo) {
-		return reproduto.alterar(produto, codigo);
-	}
+    public boolean excluir(int codigo) {
+        return reproduto.excluir(codigo);
+    }
 
-	public Produto buscar(int codigo) {
-		return reproduto.buscar(codigo);
-	}
+    public boolean alterar(Produto produto, int codigo) {
+        return reproduto.alterar(produto, codigo);
+    }
 
-	public List<Produto> listar() {
-		return reproduto.listar();
-	}
+    public Produto buscar(int codigo) {
+        return reproduto.buscar(codigo);
+    }
 
-	public List<Produto> listarNome() {
-		return reproduto.listarNome();
-	}
-	
-	public Produto buscarNome(String nome) {
-		return reproduto.buscarNome(nome);
-	}
+    public List<Produto> listar() {
+        return reproduto.listar();
+    }
 
-	public boolean abaterEstoque(Venda abaterEstoque) {
-		return reproduto.abaterEstoque(abaterEstoque);
-	}
+    public List<Produto> listarNome() {
+        return reproduto.listarNome();
+    }
+
+    public Produto buscarNome(String nome) {
+        return reproduto.buscarNome(nome);
+    }
+
+    public boolean abaterEstoque(Venda abaterEstoque) {
+        return reproduto.abaterEstoque(abaterEstoque);
+    }
 }

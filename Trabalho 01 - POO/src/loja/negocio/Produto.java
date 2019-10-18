@@ -1,83 +1,84 @@
 package loja.negocio;
 
 public class Produto {
-	private int codigo;
-	private String nome;
-	private String descricao;
-	private double preco;
-	private double quantEstoque;
-	private int Vendido;
-	private int Excluido;
 
-	public int getExcluido() {
-		return Excluido;
-	}
+    private int codigo;
+    private String nome;
+    private String descricao;
+    private double preco;
+    private double quantEstoque;
+    private int Vendido;
+    private int Excluido;
 
-	public void setExcluido(int excluido) {
-		Excluido = excluido;
-	}
+    public int getExcluido() {
+        return Excluido;
+    }
 
-	public int getVendido() {
-		return Vendido;
-	}
+    public void setExcluido(int excluido) {
+        Excluido = excluido;
+    }
 
-	public void setVendido(int vendido) {
-		Vendido = vendido;
-	}
+    public int getVendido() {
+        return Vendido;
+    }
 
-	public Produto(String nome, String descricao, double valor, double quantEstoque) {
-		this.nome = nome;
-		this.descricao = descricao;
-		this.preco = valor;
-		this.quantEstoque = quantEstoque;
-	}
+    public void setVendido(int vendido) {
+        Vendido = vendido;
+    }
 
-	public Produto(int codigo, String nome, String descricao, double valor, double quant) {
-		// TODO Auto-generated constructor stub
-		this.codigo = codigo;
-		this.nome = nome;
-		this.descricao = descricao;
-		this.preco = valor;
-		this.quantEstoque = quant;
-	}
+    public Produto(String nome, String descricao, double valor, double quantEstoque) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = valor;
+        this.quantEstoque = quantEstoque;
+    }
 
-	public int getCodigo() {
-		return codigo;
-	}
+    public Produto(int codigo, String nome, String descricao, double valor, double quant) {
+        // TODO Auto-generated constructor stub
+        this.codigo = codigo;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = valor;
+        this.quantEstoque = quant;
+    }
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
-	}
+    public int getCodigo() {
+        return codigo;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public double getPreco() {
-		return preco;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setPreco(double preco) {
-		this.preco = preco;
-	}
+    public double getPreco() {
+        return preco;
+    }
 
-	public double getQuantEstoque() {
-		return quantEstoque;
-	}
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
 
-	public void setQuantEstoque(double d) {
-		this.quantEstoque = d;
-	}
+    public double getQuantEstoque() {
+        return quantEstoque;
+    }
+
+    public void setQuantEstoque(double d) {
+        this.quantEstoque = d;
+    }
 }

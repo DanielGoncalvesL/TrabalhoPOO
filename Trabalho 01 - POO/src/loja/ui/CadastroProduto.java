@@ -21,11 +21,13 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
      */
     public CadastroProduto() {
         sis = Sistema.getInstance();
+        sis.limparCarrinho();
         initComponents();
     }
 
     public CadastroProduto(Produto objeto) {
         sis = Sistema.getInstance();
+        sis.limparCarrinho();
         produto1 = objeto;
         initComponents();
         setTitle("Alterar dados");

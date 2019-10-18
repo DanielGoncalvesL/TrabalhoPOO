@@ -20,12 +20,14 @@ import loja.negocio.Sistema;
 public class RealizarVenda extends javax.swing.JInternalFrame {
 
     private Carrinho carrinho;
+    private int codigo = 0;
 
     /**
      * Creates new form RealizarVenda
      */
     public RealizarVenda() {
         sis = Sistema.getInstance();
+        sis.limparCarrinho();
         initComponents();
     }
 
@@ -80,11 +82,11 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nome do Produto", "Preço", "Quantidade"
+                "ID", "Nome do Produto", "Preço", "Quantidade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -197,6 +199,23 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
 
     private void btExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirProdutoActionPerformed
         // TODO add your handling code here:
+        ExcluirProdutoCarrinho excluir = new ExcluirProdutoCarrinho(new javax.swing.JFrame(), true);
+        excluir.setLocationRelativeTo(null);
+        excluir.setVisible(true);
+        System.out.println(excluir.getCodigo());
+        if (excluir.getCodigo() != -1) {
+            if (excluir.getCodigo() >= 0 && carrinho.getItens().size() > excluir.getCodigo()) {
+                if (sis.excluirItemCarrinho(excluir.getCodigo())) {
+                    JOptionPane.showMessageDialog(null, "Item Excluido com Sucesso!!");
+                    CarregarItens();
+                    PrecoTotal();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Falha ao Excluir!!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Falha ao Excluir!!");
+            }
+        }
     }//GEN-LAST:event_btExcluirProdutoActionPerformed
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
@@ -205,10 +224,14 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         if (tfNome.getText().equals("")) {
             ok = false;
             tfNome.setBackground(Color.PINK);
+        } else {
+            tfNome.setBackground(Color.WHITE);
         }
         if (tfQuantidade.getText().equals("")) {
             ok = false;
             tfQuantidade.setBackground(Color.PINK);
+        } else {
+            tfQuantidade.setBackground(Color.WHITE);
         }
         if (ok) {
             String nomeProduto = tfNome.getText();
@@ -244,12 +267,15 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         if (carrinho != null) {
             DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
             modelo.setNumRows(0);
+            codigo = 0;
             carrinho.getItens().forEach((_item) -> {
                 modelo.addRow(new Object[]{
+                    codigo,
                     _item.getProduto().getNome(),
                     "R$ " + _item.getPreco() * _item.getQuantidade(),
                     _item.getQuantidade()
                 });
+                codigo++;
             });
         }
     }

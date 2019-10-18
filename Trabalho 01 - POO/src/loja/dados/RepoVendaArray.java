@@ -96,10 +96,18 @@ public class RepoVendaArray {
         }
         return null;
     }
-    
-    public void limparCarrinho(){
-    carrinho = new Carrinho();
-    itens = new ArrayList<>();
+
+    public void limparCarrinho() {
+        carrinho = new Carrinho();
+        itens = new ArrayList<>();
+    }
+
+    public boolean excluirItemCarrinho(int codigo) {
+        if (carrinho != null && carrinho.getItens().size() >= codigo && codigo >= 0) {
+            carrinho.getItens().remove(codigo);
+            return true;
+        }
+        return false;
     }
 
 }

@@ -20,6 +20,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         sis = Sistema.getInstance();
+        sis.limparCarrinho();
         initComponents();
     }
 
