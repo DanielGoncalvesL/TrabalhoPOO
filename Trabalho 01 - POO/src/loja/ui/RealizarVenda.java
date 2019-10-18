@@ -29,7 +29,7 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         sis = Sistema.getInstance();
         sis.limparCarrinho();
         initComponents();
-         btExcluirProduto.setEnabled(false);
+        btExcluirProduto.setEnabled(false);
     }
 
     /**
@@ -282,14 +282,14 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         }
     }
 
-    private void VerificarBotao(){
-        if(carrinho.getItens().size() > 0){
+    private void VerificarBotao() {
+        if (carrinho.getItens().size() > 0) {
             btExcluirProduto.setEnabled(true);
-        }else{
+        } else {
             btExcluirProduto.setEnabled(false);
         }
     }
-    
+
     private void ReiniciarJanela() {
         dispose();
         this.setVisible(true);
@@ -303,14 +303,22 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
 
     private void btRealizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRealizarCompraActionPerformed
         // TODO add your handling code here:
+        CarregarItens();
+        PrecoTotal();
+        VerificarBotao();
         NomeClienteVenda nome = new NomeClienteVenda(new javax.swing.JFrame(), true);
         nome.setLocationRelativeTo(null);
         nome.setVisible(true);
-        if(nome.getNome() != null && !nome.getNome().equals("")){
-            if(sis.concluirVenda(nome.getNome())){
-                JOptionPane.showMessageDialog(null, "Venda Concluida com Sucesso!!");
-                dispose();
+        if (!carrinho.getItens().isEmpty()) {
+            if (nome.getNome() != null && !nome.getNome().equals("")) {
+                if (sis.concluirVenda(nome.getNome())) {
+                    JOptionPane.showMessageDialog(null, "Venda Concluida com Sucesso!!");
+                    dispose();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Naõ foi Possivel Concluir Venda!!");
+            dispose();
         }
     }//GEN-LAST:event_btRealizarCompraActionPerformed
 

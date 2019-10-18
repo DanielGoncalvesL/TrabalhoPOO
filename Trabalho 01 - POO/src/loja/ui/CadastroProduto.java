@@ -181,7 +181,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         } else {
             tfQuant.setBackground(Color.WHITE);
         }
-        if (tfPreco.getText().equals("")) {
+        if (tfPreco.getText().equals("") && ) {
             ok = false;
             tfPreco.setBackground(Color.PINK);
         } else {
