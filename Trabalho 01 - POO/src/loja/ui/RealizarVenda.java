@@ -29,6 +29,7 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         sis = Sistema.getInstance();
         sis.limparCarrinho();
         initComponents();
+         btExcluirProduto.setEnabled(false);
     }
 
     /**
@@ -208,6 +209,7 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Item Excluido com Sucesso!!");
                     CarregarItens();
                     PrecoTotal();
+                    VerificarBotao();
                 } else {
                     JOptionPane.showMessageDialog(null, "Falha ao Excluir!!");
                 }
@@ -245,6 +247,7 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
                                 JOptionPane.showMessageDialog(null, "Produto Adicionado com Sucesso no Carrinho!!");
                                 CarregarItens();
                                 PrecoTotal();
+                                VerificarBotao();
                             }
                         }
                     }
@@ -279,6 +282,14 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         }
     }
 
+    private void VerificarBotao(){
+        if(carrinho.getItens().size() > 0){
+            btExcluirProduto.setEnabled(true);
+        }else{
+            btExcluirProduto.setEnabled(false);
+        }
+    }
+    
     private void ReiniciarJanela() {
         dispose();
         this.setVisible(true);
