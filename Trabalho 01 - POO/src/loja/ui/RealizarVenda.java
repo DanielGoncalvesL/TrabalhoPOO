@@ -202,7 +202,6 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         ExcluirProdutoCarrinho excluir = new ExcluirProdutoCarrinho(new javax.swing.JFrame(), true);
         excluir.setLocationRelativeTo(null);
         excluir.setVisible(true);
-        System.out.println(excluir.getCodigo());
         if (excluir.getCodigo() != -1) {
             if (excluir.getCodigo() >= 0 && carrinho.getItens().size() > excluir.getCodigo()) {
                 if (sis.excluirItemCarrinho(excluir.getCodigo())) {
@@ -293,6 +292,15 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
 
     private void btRealizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRealizarCompraActionPerformed
         // TODO add your handling code here:
+        NomeClienteVenda nome = new NomeClienteVenda(new javax.swing.JFrame(), true);
+        nome.setLocationRelativeTo(null);
+        nome.setVisible(true);
+        if(nome.getNome() != null && !nome.getNome().equals("")){
+            if(sis.concluirVenda(nome.getNome())){
+                JOptionPane.showMessageDialog(null, "Venda Concluida com Sucesso!!");
+                dispose();
+            }
+        }
     }//GEN-LAST:event_btRealizarCompraActionPerformed
 
 
