@@ -10,13 +10,14 @@ import loja.negocio.Item;
 import loja.negocio.Produto;
 import loja.negocio.Venda;
 
-public class RepoVendaArray {
+public class RepoVendaArray implements IRepoVenda {
 
     private final List<Venda> vendas = new ArrayList<>();
     private List<Item> itens = new ArrayList<>();
     private Carrinho carrinho = new Carrinho();
     private int codigoVenda = 0;
 
+    @Override
     public boolean inserirCarrinho(Item item) {
         if (item != null) {
             for (int i = 0; i < carrinho.getItens().size(); i++) {
@@ -31,6 +32,7 @@ public class RepoVendaArray {
         return false;
     }
 
+    @Override
     public Item criarItem(Produto produto, double quantidade) {
         if (produto != null) {
             Item item = new Item();
@@ -42,6 +44,7 @@ public class RepoVendaArray {
         return null;
     }
 
+    @Override
     public List<Venda> listarVenda() {
         if (vendas != null) {
             return vendas;
@@ -49,6 +52,7 @@ public class RepoVendaArray {
         return null;
     }
 
+    @Override
     public List<Venda> listarData(String data) {
         if (vendas != null) {
             List<Venda> venda = new ArrayList<>();
@@ -66,6 +70,7 @@ public class RepoVendaArray {
         }
     }
 
+    @Override
     public Venda listarCodigo(int codigo) {
         if (vendas != null) {
             for (Venda venda : vendas) {
@@ -77,6 +82,7 @@ public class RepoVendaArray {
         return null;
     }
 
+    @Override
     public Carrinho listarCarrinho() {
         if (carrinho != null) {
             return carrinho;
@@ -84,6 +90,7 @@ public class RepoVendaArray {
         return null;
     }
 
+    @Override
     public Venda concluirVenda(String nomeCliente) {
         if (carrinho != null) {
             Date data = new Date();
@@ -97,11 +104,13 @@ public class RepoVendaArray {
         return null;
     }
 
+    @Override
     public void limparCarrinho() {
         carrinho = new Carrinho();
         itens = new ArrayList<>();
     }
 
+    @Override
     public boolean excluirItemCarrinho(int codigo) {
         if (carrinho != null && carrinho.getItens().size() >= codigo && codigo >= 0) {
             carrinho.getItens().remove(codigo);

@@ -6,11 +6,12 @@ import loja.negocio.Item;
 import loja.negocio.Produto;
 import loja.negocio.Venda;
 
-public class RepoProdutoArray {
+public class RepoProdutoArray implements IRepoProduto {
 
     private final List<Produto> produtos = new ArrayList<>();
     private int codigo = 1;
 
+    @Override
     public boolean inserir(Produto produto) {
         if (produto != null) {
             for (int i = 0; i < produtos.size(); i++) {
@@ -26,6 +27,7 @@ public class RepoProdutoArray {
         return false;
     }
 
+    @Override
     public boolean excluir(int codigo) {
         for (int i = 0; i < produtos.size(); i++) {
             if (produtos.get(i).getCodigo() == codigo && produtos.get(i).getVendido() != 1) {
@@ -41,11 +43,12 @@ public class RepoProdutoArray {
         return false;
     }
 
+    @Override
     public boolean alterar(Produto produto, int codigo) {
         if (produto != null) {
             for (int i = 0; i < produtos.size(); i++) {
                 if (produtos.get(i).getCodigo() == codigo) {
-                    produtos.add(produto);
+                    produtos.set(i, produto);
                     return true;
                 }
             }
@@ -55,6 +58,7 @@ public class RepoProdutoArray {
         }
     }
 
+    @Override
     public Produto buscar(int codigo) {
         for (int i = 0; i < produtos.size(); i++) {
             if (produtos.get(i).getCodigo() == codigo) {
@@ -64,6 +68,7 @@ public class RepoProdutoArray {
         return null;
     }
 
+    @Override
     public List<Produto> listar() {
         if (produtos != null) {
             produtos.forEach((_item) -> {
@@ -82,6 +87,7 @@ public class RepoProdutoArray {
         }
     }
 
+    @Override
     public List<Produto> listarNome() {
         produtos.forEach((_item) -> {
             for (int i = 0; i < produtos.size() - 1; i++) {
@@ -95,6 +101,7 @@ public class RepoProdutoArray {
         return produtos;
     }
 
+    @Override
     public Produto buscarNome(String nome) {
         if (nome != null) {
             for (Produto produto : produtos) {
@@ -106,6 +113,7 @@ public class RepoProdutoArray {
         return null;
     }
     
+    @Override
      public List<Produto> FiltrarNome(String nome) {
         if (nome != null) {
             List<Produto> prod = new ArrayList<>();
@@ -119,6 +127,7 @@ public class RepoProdutoArray {
         return null;
     }
 
+    @Override
     public boolean abaterEstoque(Venda abaterEstoque) {
         if (abaterEstoque != null && produtos != null) {
             int abateu = 0;

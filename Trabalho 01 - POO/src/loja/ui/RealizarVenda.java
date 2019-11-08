@@ -259,7 +259,9 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
     private void PrecoTotal() {
         double preco = 0;
         if (carrinho != null) {
-            preco = carrinho.getItens().stream().map((item) -> item.getPreco() * item.getQuantidade()).reduce(preco, (accumulator, _item) -> accumulator + _item);
+            for(int i = 0; i < carrinho.getItens().size(); i++){
+                preco = (carrinho.getItens().get(i).getPreco() + preco) * carrinho.getItens().get(i).getQuantidade();
+            }
         }
         tfTotal.setText("R$ " + Double.toString(preco));
     }
