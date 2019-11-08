@@ -1,14 +1,15 @@
 package loja.negocio;
 
 import java.util.List;
+import loja.dados.IRepoProduto;
 import loja.dados.RepoProdutoArray;
 
 public class ControladorProduto {
 
-    private final RepoProdutoArray reproduto;
+    private final IRepoProduto reproduto;
 
-    public ControladorProduto() {
-        reproduto = new RepoProdutoArray();
+    public ControladorProduto(IRepoProduto repoProduto) {
+        this.reproduto = repoProduto;
     }
 
     public boolean inserir(Produto produto) {

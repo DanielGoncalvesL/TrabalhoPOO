@@ -6,8 +6,11 @@
 package loja.ui;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import loja.negocio.Item;
+import loja.negocio.Produto;
 import loja.negocio.Sistema;
 import loja.negocio.Venda;
 
@@ -29,6 +32,7 @@ public class BuscarVenda extends javax.swing.JInternalFrame {
         sis = Sistema.getInstance();
         initComponents();
         CarregarVendas(Codigo);
+        CarregarProdutos(Codigo);
     }
 
     /**
@@ -45,6 +49,8 @@ public class BuscarVenda extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbListar = new javax.swing.JTable();
         btSair = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbListarProdutos = new javax.swing.JTable();
 
         setBorder(null);
         setTitle("Buscar Produto");
@@ -70,22 +76,45 @@ public class BuscarVenda extends javax.swing.JInternalFrame {
             }
         });
 
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tbListarProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Marca", "Preço", "Quantidade"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tbListarProdutos);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSair)
-                .addContainerGap())
+                .addGap(16, 16, 16))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -136,11 +165,31 @@ public class BuscarVenda extends javax.swing.JInternalFrame {
         }
     }
 
+    private void CarregarProdutos(int Codigo) {
+        venda = sis.listarCodigo(Codigo);
+        if (venda != null) {
+            DefaultTableModel modelo = (DefaultTableModel) tbListarProdutos.getModel();
+            modelo.setNumRows(0);
+            for (Item itensVendido : venda.getItensVendidos()) {
+                modelo.addRow(new Object[]{
+                    itensVendido.getProduto().getDescricao(),
+                    itensVendido.getProduto().getNome(),
+                    itensVendido.getPreco(),
+                    itensVendido.getQuantidade()
+                });
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Não tem Venda com esse Código!");
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSair;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tbListar;
+    private javax.swing.JTable tbListarProdutos;
     // End of variables declaration//GEN-END:variables
 }

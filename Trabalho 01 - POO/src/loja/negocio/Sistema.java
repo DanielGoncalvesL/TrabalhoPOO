@@ -1,6 +1,8 @@
 package loja.negocio;
 
 import java.util.List;
+import loja.dados.IRepoProduto;
+import loja.dados.IRepoVenda;
 
 public final class Sistema {
 
@@ -10,15 +12,22 @@ public final class Sistema {
 
     private static Sistema instance;
 
-    public Sistema() {
-        cProduto = new ControladorProduto();
-        cVenda = new ControladorVenda();
+    private Sistema(IRepoProduto repoProduto, IRepoVenda repovenda) {
+        cProduto = new ControladorProduto(repoProduto);
+        cVenda = new ControladorVenda(repovenda);
         init();
+    }
+
+    public static Sistema getInstance(IRepoProduto repoProduto, IRepoVenda repovenda) {
+        if (instance == null) {
+            instance = new Sistema(repoProduto, repovenda);
+        }
+        return instance;
     }
 
     public static Sistema getInstance() {
         if (instance == null) {
-            instance = new Sistema();
+            throw new NullPointerException("Inicializar a classe Sistema primeiro");
         }
         return instance;
     }
@@ -50,7 +59,7 @@ public final class Sistema {
     public Produto buscarNome(String nome) {
         return cProduto.buscarNome(nome);
     }
-    
+
     public List<Produto> FiltrarNome(String nome) {
         return cProduto.FiltrarNome(nome);
     }

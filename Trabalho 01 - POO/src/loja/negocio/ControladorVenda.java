@@ -1,14 +1,15 @@
 package loja.negocio;
 
 import java.util.List;
+import loja.dados.IRepoVenda;
 import loja.dados.RepoVendaArray;
 
 public class ControladorVenda {
 
-    private RepoVendaArray repovenda;
+    private IRepoVenda repovenda;
 
-    public ControladorVenda() {
-        repovenda = new RepoVendaArray();
+    public ControladorVenda(IRepoVenda repoVenda) {
+        this.repovenda = repoVenda;
     }
 
     public boolean inserirCarrinho(Item item) {

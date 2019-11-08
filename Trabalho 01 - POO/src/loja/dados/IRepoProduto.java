@@ -13,7 +13,7 @@ import loja.negocio.Venda;
  *
  * @author Daniel
  */
-interface IRepoProduto{
+public interface IRepoProduto{
 
     List<Produto> FiltrarNome(String nome);
 

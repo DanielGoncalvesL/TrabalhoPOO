@@ -24,7 +24,7 @@ public class Venda {
     public double getValorVenda() {
         valorVenda = 0;
         for (int i = 0; i < itensVendidos.size(); i++) {
-            valorVenda += itensVendidos.get(i).getPreco();
+            valorVenda += itensVendidos.get(i).getPreco() * itensVendidos.get(i).getQuantidade();
         }
         return valorVenda;
     }
