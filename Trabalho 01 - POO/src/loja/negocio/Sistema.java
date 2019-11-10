@@ -1,6 +1,7 @@
 package loja.negocio;
 
 import java.util.List;
+import loja.dados.IRepoMarca;
 import loja.dados.IRepoProduto;
 import loja.dados.IRepoVenda;
 
@@ -11,16 +12,19 @@ public final class Sistema {
     private final ControladorVenda cVenda;
 
     private static Sistema instance;
+    
+    private final ControladorMarca cMarca;
 
-    private Sistema(IRepoProduto repoProduto, IRepoVenda repovenda) {
+    private Sistema(IRepoProduto repoProduto, IRepoVenda repovenda, IRepoMarca repoMarca) {
         cProduto = new ControladorProduto(repoProduto);
         cVenda = new ControladorVenda(repovenda);
+        cMarca = new ControladorMarca(repoMarca);
         init();
     }
 
-    public static Sistema getInstance(IRepoProduto repoProduto, IRepoVenda repovenda) {
+    public static Sistema getInstance(IRepoProduto repoProduto, IRepoVenda repovenda, IRepoMarca repoMarca) {
         if (instance == null) {
-            instance = new Sistema(repoProduto, repovenda);
+            instance = new Sistema(repoProduto, repovenda, repoMarca);
         }
         return instance;
     }
@@ -100,13 +104,30 @@ public final class Sistema {
     public boolean excluirItemCarrinho(int codigo) {
         return cVenda.excluirItemCarrinho(codigo);
     }
+    
+     public boolean inserir(Marca marca){
+        return cMarca.inserir(marca);
+    }
+    
+    
+    public boolean excluirMarca(int codigo){
+        return cMarca.excluir(codigo);
+    }
+    
+    public boolean alterarMarca(Marca marca, int codigo){
+        return cMarca.alterar(marca, codigo);
+    }
+    
+    public List<Marca> listarMarca(){
+        return cMarca.listar();
+    }
 
     public void init() {
-        this.inserir(new Produto("Arroz", "Rei Arthur", 15, 30));
-        this.inserir(new Produto("Feij�o", "Supang", 3.5, 30));
-        this.inserir(new Produto("Macarr�o", "Renata", 4, 30));
-        this.inserir(new Produto("Canjiquinha", "Yoki", 2, 30));
-        this.inserir(new Produto("A�ucar", "Uni�o", 8, 30));
+        this.inserir(new Produto("Arroz",new Marca("Rei Arthur", "Representante Comercial"), 15, 30));
+        this.inserir(new Produto("Feijão", new Marca("Supang", "Representante Comercial"), 3.5, 30));
+        this.inserir(new Produto("Macarrão", new Marca("Renata", "Representante Comercial"), 4, 30));
+        this.inserir(new Produto("Canjiquinha", new Marca("Yoki", "Representante Comercial"), 2, 30));
+        this.inserir(new Produto("Açucar", new Marca("União", "Representante Comercial"), 8, 30));
 
         this.inserirCarrinho(criarItem(buscarNome("Arroz"), 1));
         this.inserirCarrinho(criarItem(buscarNome("Canjiquinha"), 1));

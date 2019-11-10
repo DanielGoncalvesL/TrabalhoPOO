@@ -4,7 +4,7 @@ public class Produto {
 
     private int codigo;
     private String nome;
-    private String descricao;
+    private Marca marca;
     private double preco;
     private double quantEstoque;
     private int Vendido;
@@ -26,18 +26,18 @@ public class Produto {
         Vendido = vendido;
     }
 
-    public Produto(String nome, String descricao, double valor, double quantEstoque) {
+    public Produto(String nome, Marca marca, double valor, double quantEstoque) {
         this.nome = nome;
-        this.descricao = descricao;
+        this.marca = marca;
         this.preco = valor;
         this.quantEstoque = quantEstoque;
     }
 
-    public Produto(int codigo, String nome, String descricao, double valor, double quant) {
+    public Produto(int codigo, String nome, Marca marca, double valor, double quant) {
         // TODO Auto-generated constructor stub
         this.codigo = codigo;
         this.nome = nome;
-        this.descricao = descricao;
+        this.marca = marca;
         this.preco = valor;
         this.quantEstoque = quant;
     }
@@ -58,12 +58,12 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public Marca getDescricao() {
+        return marca;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricao(Marca marca) {
+        this.marca = marca;
     }
 
     public double getPreco() {

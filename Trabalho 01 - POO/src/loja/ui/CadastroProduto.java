@@ -33,7 +33,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         setTitle("Alterar dados");
         tfNome.setText(objeto.getNome());
         tfPreco.setText(Double.toString(objeto.getPreco()));
-        tfMarca.setText(objeto.getDescricao());
         tfQuant.setText(Double.toString(objeto.getQuantEstoque()));
         setVisible(true);
     }
@@ -48,17 +47,28 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        tfPreco = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        cbMarca = new javax.swing.JComboBox();
+        jAdicionarMarca = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        tfPreco = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tfMarca = new javax.swing.JTextField();
         tfQuant = new javax.swing.JTextField();
-        btSalvar = new javax.swing.JButton();
-        Cancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jNovo = new javax.swing.JMenu();
+        jSalvar = new javax.swing.JMenu();
+        jEditar = new javax.swing.JMenu();
+        jCancelar = new javax.swing.JMenu();
+        jExcluir = new javax.swing.JMenu();
+        jSair = new javax.swing.JMenu();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -71,179 +81,228 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        jMenuItem1.setText("jMenuItem1");
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
+
         setBorder(null);
         setTitle("CadastrarProduto");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/add.png"))); // NOI18N
-        setPreferredSize(new java.awt.Dimension(400, 279));
+        setPreferredSize(new java.awt.Dimension(700, 400));
 
         jLabel1.setText("Nome do Produto");
 
-        jLabel2.setText("Preço");
+        jLabel2.setText("Marca");
 
-        jLabel3.setText("Marca");
+        jAdicionarMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/add.png"))); // NOI18N
+        jAdicionarMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAdicionarMarcaActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Preço");
 
         jLabel4.setText("Quantidade");
 
-        btSalvar.setBackground(new java.awt.Color(102, 255, 102));
-        btSalvar.setText("Salvar");
-        btSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalvarActionPerformed(evt);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome do Produto", "Marca", "Preço", "Quantidade"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jScrollPane1.setViewportView(jTable1);
 
-        Cancelar.setBackground(new java.awt.Color(255, 0, 51));
-        Cancelar.setText("Cancelar");
-        Cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 204, Short.MAX_VALUE)
-                        .addComponent(Cancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btSalvar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfNome)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(tfMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfPreco)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(tfQuant, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
-                .addGap(41, 41, 41))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(tfPreco)
+                                .addComponent(tfNome, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel3))
+                        .addGap(61, 61, 61)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(89, 300, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(cbMarca, 0, 263, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jAdicionarMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfQuant))
+                                .addContainerGap())))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAdicionarMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfQuant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btSalvar)
-                    .addComponent(Cancelar))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page_white_add.png"))); // NOI18N
+        jNovo.setText("Novo");
+        jNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNovoActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jNovo);
+
+        jSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table_save.png"))); // NOI18N
+        jSalvar.setText("Salvar");
+        jSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSalvarActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jSalvar);
+
+        jEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page_edit.png"))); // NOI18N
+        jEditar.setText("Editar");
+        jEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditarActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jEditar);
+
+        jCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel.png"))); // NOI18N
+        jCancelar.setText("Cancelar");
+        jCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelarActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jCancelar);
+
+        jExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page_delete.png"))); // NOI18N
+        jExcluir.setText("Excluir");
+        jExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jExcluirActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jExcluir);
+
+        jSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/link_go.png"))); // NOI18N
+        jSair.setText("Sair");
+        jSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSairActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jSair);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+    private void jNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNovoActionPerformed
         // TODO add your handling code here:
-        boolean ok = true;
-        if (tfNome.getText().equals("")) {
-            ok = false;
-            tfNome.setBackground(Color.PINK);
-        } else {
-            tfNome.setBackground(Color.WHITE);
-        }
-        if (tfQuant.getText().equals("")) {
-            ok = false;
-            tfQuant.setBackground(Color.PINK);
-        } else {
-            tfQuant.setBackground(Color.WHITE);
-        }
-        if (tfPreco.getText().equals("") && Double.parseDouble(tfPreco.getText()) <= 0) {
-            ok = false;
-            tfPreco.setBackground(Color.PINK);
-        } else {
-            tfPreco.setBackground(Color.WHITE);
-        }
-        if (tfMarca.getText().equals("")) {
-            ok = false;
-            tfMarca.setBackground(Color.PINK);
-        } else {
-            tfMarca.setBackground(Color.WHITE);
-        }
+    }//GEN-LAST:event_jNovoActionPerformed
 
-        if (ok) {
-            if (produto1 == null) {
-                String nome = tfNome.getText();
-                double preco = Double.parseDouble(tfPreco.getText());
-                double quant = Double.parseDouble(tfQuant.getText());
-                String descricao = tfMarca.getText();
-                produto = new Produto(nome, descricao, preco, quant);
-                if (sis.inserir(produto)) {
-                    JOptionPane.showMessageDialog(null, "Produto Inserido com Sucesso!");
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "O Produto não foi Inserido!");
-                    dispose();
-                }
-            } else {
-                int codigo = produto1.getCodigo();
-                String nome = tfNome.getText();
-                double preco = Double.parseDouble(tfPreco.getText());
-                double quant = Double.parseDouble(tfQuant.getText());
-                String descricao = tfMarca.getText();
-                produto = new Produto(codigo, nome, descricao, preco, quant);
-                if (sis.alterar(produto, codigo)) {
-                    JOptionPane.showMessageDialog(null, "Produto Alterado com Sucesso!");
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "O Produto não foi Alterado!");
-                    dispose();
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Preencha os campos destacados!");
-        }
-    }//GEN-LAST:event_btSalvarActionPerformed
-
-    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+    private void jSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalvarActionPerformed
         // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_CancelarActionPerformed
+    }//GEN-LAST:event_jSalvarActionPerformed
+
+    private void jEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jEditarActionPerformed
+
+    private void jCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCancelarActionPerformed
+
+    private void jExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jExcluirActionPerformed
+
+    private void jSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSairActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jSairActionPerformed
+
+    private void jAdicionarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdicionarMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jAdicionarMarcaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Cancelar;
-    private javax.swing.JButton btSalvar;
+    private javax.swing.JComboBox cbMarca;
+    private javax.swing.JButton jAdicionarMarca;
+    private javax.swing.JMenu jCancelar;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JMenu jEditar;
+    private javax.swing.JMenu jExcluir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu jNovo;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField tfMarca;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JMenu jSair;
+    private javax.swing.JMenu jSalvar;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfPreco;
     private javax.swing.JTextField tfQuant;
