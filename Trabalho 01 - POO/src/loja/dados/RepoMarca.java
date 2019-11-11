@@ -69,4 +69,15 @@ public class RepoMarca implements IRepoMarca {
             return null;
         }
     }
+    
+       public Marca buscarNome(String nome) {
+        if (nome != null) {
+            for (Marca marca : marcas) {
+                if (marca != null && marca.getNome().equals(nome)) {
+                    return marca;
+                }
+            }
+        }
+        return null;
+    }
 }

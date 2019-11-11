@@ -15,14 +15,17 @@ import loja.dados.RepoMarca;
  */
 public class ControladorMarca {
     
-    private final IRepoMarca repoMarca;
-    
-    private RepoMarca rMarca;
-    
+    private final IRepoMarca rMarca;
+        
     public ControladorMarca(IRepoMarca repoMarca){
-        this.repoMarca = repoMarca;
+        this.rMarca = repoMarca;
     }
     
+    /**
+     *
+     * @param marca
+     * @return
+     */
     public boolean inserir(Marca marca){
         return rMarca.inserir(marca);
     }
@@ -37,5 +40,9 @@ public class ControladorMarca {
     
     public List<Marca> listar(){
         return rMarca.listar();
+    }
+    
+    public Marca buscarNome(String nome){
+        return rMarca.buscarNome(nome);
     }
 }

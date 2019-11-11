@@ -93,23 +93,44 @@ public final class Sistema {
         return cVenda.listarCodigo(codigo);
     }
 
+    /**
+     *
+     * @return
+     */
     public Carrinho listarCarrinho() {
         return cVenda.listarCarrinho();
     }
 
+    /**
+     *
+     */
     public void limparCarrinho() {
         cVenda.limparCarrinho();
     }
 
+    /**
+     *
+     * @param codigo
+     * @return
+     */
     public boolean excluirItemCarrinho(int codigo) {
         return cVenda.excluirItemCarrinho(codigo);
     }
     
-     public boolean inserir(Marca marca){
+    /**
+     *
+     * @param marca
+     * @return
+     */
+    public boolean inserirMarca(Marca marca){
         return cMarca.inserir(marca);
     }
     
-    
+    /**
+     *
+     * @param codigo
+     * @return
+     */
     public boolean excluirMarca(int codigo){
         return cMarca.excluir(codigo);
     }
@@ -121,6 +142,10 @@ public final class Sistema {
     public List<Marca> listarMarca(){
         return cMarca.listar();
     }
+    
+    public Marca buscarNomeMarca(String nome){
+        return cMarca.buscarNome(nome);
+    }
 
     public void init() {
         this.inserir(new Produto("Arroz",new Marca("Rei Arthur", "Representante Comercial"), 15, 30));
@@ -129,6 +154,12 @@ public final class Sistema {
         this.inserir(new Produto("Canjiquinha", new Marca("Yoki", "Representante Comercial"), 2, 30));
         this.inserir(new Produto("Açucar", new Marca("União", "Representante Comercial"), 8, 30));
 
+        this.inserirMarca(new Marca("Supang", "Representante Comercial"));
+        this.inserirMarca(new Marca("Yoki", "Representante Comercial"));
+        this.inserirMarca(new Marca("Renata", "Representante Comercial"));
+        this.inserirMarca(new Marca("União", "Representante Comercial"));
+        this.inserirMarca(new Marca("Rei Arthur", "Representante Comercial"));
+        
         this.inserirCarrinho(criarItem(buscarNome("Arroz"), 1));
         this.inserirCarrinho(criarItem(buscarNome("Canjiquinha"), 1));
         this.concluirVenda("Daniel");

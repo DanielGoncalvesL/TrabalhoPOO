@@ -7,9 +7,11 @@ package loja.ui;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import loja.negocio.Marca;
 import loja.negocio.Produto;
 import loja.negocio.Sistema;
 
@@ -31,7 +33,7 @@ public class CRUDProduto extends javax.swing.JDialog {
         super(parent, modal);
         sis = Sistema.getInstance();
         initComponents();
-        CarregarProdutos();
+        carregarProdutos();
         DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
         tbListar.setRowSorter(new TableRowSorter(modelo));
 
@@ -114,9 +116,19 @@ public class CRUDProduto extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tbListar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbListarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbListar);
         if (tbListar.getColumnModel().getColumnCount() > 0) {
+            tbListar.getColumnModel().getColumn(0).setResizable(false);
             tbListar.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tbListar.getColumnModel().getColumn(1).setResizable(false);
+            tbListar.getColumnModel().getColumn(2).setResizable(false);
+            tbListar.getColumnModel().getColumn(3).setResizable(false);
+            tbListar.getColumnModel().getColumn(4).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -198,10 +210,16 @@ public class CRUDProduto extends javax.swing.JDialog {
         jSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table_save.png"))); // NOI18N
         jSalvar.setText("Salvar");
         jSalvar.setEnabled(false);
-        jSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jSalvarMouseClicked(evt);
+        jSalvar.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
             }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jSalvarMenuSelected(evt);
+            }
+        });
+        jSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jSalvarMouseEntered(evt);
             }
@@ -213,7 +231,15 @@ public class CRUDProduto extends javax.swing.JDialog {
 
         jEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page_edit.png"))); // NOI18N
         jEditar.setText("Editar");
-        jEditar.setEnabled(false);
+        jEditar.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jEditarMenuSelected(evt);
+            }
+        });
         jEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jEditarMouseEntered(evt);
@@ -242,7 +268,15 @@ public class CRUDProduto extends javax.swing.JDialog {
 
         jExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page_delete.png"))); // NOI18N
         jExcluir.setText("Excluir");
-        jExcluir.setEnabled(false);
+        jExcluir.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jExcluirMenuSelected(evt);
+            }
+        });
         jExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jExcluirMouseEntered(evt);
@@ -363,9 +397,15 @@ public class CRUDProduto extends javax.swing.JDialog {
         tfPreco.setEnabled(true);
         tfQuant.setEnabled(true);
         cbMarca.setEnabled(true);
+        preencherSelect();
     }//GEN-LAST:event_jNovoMouseClicked
 
-    private void jSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSalvarMouseClicked
+    private void jCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCancelarMouseClicked
+        // TODO add your handling code here:
+        reiniciarMenu();
+    }//GEN-LAST:event_jCancelarMouseClicked
+
+    private void jSalvarMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jSalvarMenuSelected
         // TODO add your handling code here:
         boolean ok = true;
         if (tfNome.getText().equals("")) {
@@ -380,52 +420,123 @@ public class CRUDProduto extends javax.swing.JDialog {
         } else {
             tfQuant.setBackground(Color.WHITE);
         }
-        if (tfPreco.getText().equals("") && Double.parseDouble(tfPreco.getText()) <= 0) {
+        if (tfPreco.getText().equals("") || Double.parseDouble(tfPreco.getText()) <= 0) {
             ok = false;
             tfPreco.setBackground(Color.PINK);
         } else {
             tfPreco.setBackground(Color.WHITE);
         }
-        if (tfMarca.getText().equals("")) {
-            ok = false;
-            tfMarca.setBackground(Color.PINK);
-        } else {
-            tfMarca.setBackground(Color.WHITE);
-        }
-
         if (ok) {
+            String nome = tfNome.getText();
+            double preco = Double.parseDouble(tfPreco.getText());
+            double quant = Double.parseDouble(tfQuant.getText());
+            Marca marca = (Marca) cbMarca.getSelectedItem();
+            Produto produto = new Produto(nome, marca, preco, quant);
+            if (sis.inserir(produto)) {
+                JOptionPane.showMessageDialog(this, "Produto Inserido com Sucesso!");
+                carregarProdutos();
+            } else {
+                JOptionPane.showMessageDialog(this, "O Produto não foi Inserido!");
+                carregarProdutos();
+            }
+            reiniciarMenu();
+        }
+    }//GEN-LAST:event_jSalvarMenuSelected
+
+    private void jExcluirMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jExcluirMenuSelected
+        // TODO add your handling code here:
+        try {
+            int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);
+            if (sis.excluir(cod)) {
+                JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
+                carregarProdutos();
+                reiniciarMenu();
+            } else {
+                JOptionPane.showMessageDialog(this, "Falha ao excluir!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Selecione algum registro da tabela");
+        }
+    }//GEN-LAST:event_jExcluirMenuSelected
+
+    private void jEditarMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jEditarMenuSelected
+        // TODO add your handling code here:
+        try {
+            boolean ok = true;
+            if (tfNome.getText().equals("")) {
+                ok = false;
+                tfNome.setBackground(Color.PINK);
+            } else {
+                tfNome.setBackground(Color.WHITE);
+            }
+            if (tfQuant.getText().equals("")) {
+                ok = false;
+                tfQuant.setBackground(Color.PINK);
+            } else {
+                tfQuant.setBackground(Color.WHITE);
+            }
+            if (tfPreco.getText().equals("") || Double.parseDouble(tfPreco.getText()) <= 0) {
+                ok = false;
+                tfPreco.setBackground(Color.PINK);
+            } else {
+                tfPreco.setBackground(Color.WHITE);
+            }
+            if (ok) {
                 String nome = tfNome.getText();
                 double preco = Double.parseDouble(tfPreco.getText());
                 double quant = Double.parseDouble(tfQuant.getText());
-                String descricao = tfMarca.getText();
-                produto = new Produto(nome, descricao, preco, quant);
-                if (sis.inserir(produto)) {
-                    JOptionPane.showMessageDialog(null, "Produto Inserido com Sucesso!");
-                    dispose();
+                Marca marca = (Marca) cbMarca.getSelectedItem();
+                Produto produto = new Produto(nome, marca, preco, quant);
+                int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);
+                produto.setCodigo(cod);
+                if (sis.alterar(produto, cod)) {
+                    JOptionPane.showMessageDialog(this, "Produto Alterado com Sucesso!");
+                    carregarProdutos();
                 } else {
-                    JOptionPane.showMessageDialog(null, "O Produto não foi Inserido!");
-                    dispose();
+                    JOptionPane.showMessageDialog(this, "O Produto não foi Alterado!");
+                    carregarProdutos();
                 }
+                reiniciarMenu();
+            }
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(this, "Falha ao Alterar o Produto");
         }
-    }//GEN-LAST:event_jSalvarMouseClicked
+    }//GEN-LAST:event_jEditarMenuSelected
 
-    private void jCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCancelarMouseClicked
+    private void tbListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarMouseClicked
         // TODO add your handling code here:
-        jNovo.setEnabled(true);
-        jSalvar.setEnabled(false);
-        jCancelar.setEnabled(false);
-        tfNome.setEnabled(false);
-        tfPreco.setEnabled(false);
-        tfQuant.setEnabled(false);
-        cbMarca.setEnabled(false);
-    }//GEN-LAST:event_jCancelarMouseClicked
+        try {
+            jNovo.setEnabled(true);
+            jSalvar.setEnabled(false);
+            jCancelar.setEnabled(true);
+            tfNome.setEnabled(true);
+            tfPreco.setEnabled(true);
+            tfQuant.setEnabled(true);
+            cbMarca.setEnabled(true);
+            preencherSelect();
+            tfNome.setText((String) tbListar.getValueAt(tbListar.getSelectedRow(), 1));
+            String replace = (String) tbListar.getValueAt(tbListar.getSelectedRow(), 3);
+            replace = replace.replace("R$", "");
+            tfPreco.setText(replace);
+            double quant = (double) tbListar.getValueAt(tbListar.getSelectedRow(), 4);
+            replace = Double.toString(quant);
+            tfQuant.setText(replace);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao Selecionar Registro");
+        }
+    }//GEN-LAST:event_tbListarMouseClicked
 
-    private preencherSelect(){
+    private void preencherSelect() {
         cbMarca.removeAllItems();
-        
+        List<Marca> marcas = sis.listarMarca();
+        if (marcas != null) {
+            for (int i = 0; i < marcas.size(); i++) {
+                cbMarca.addItem(marcas.get(i));
+            }
+        }
     }
-    
-    private void CarregarProdutos() {
+
+    private void carregarProdutos() {
         ArrayList<Produto> produtos = (ArrayList<Produto>) sis.listar();
         DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
         modelo.setNumRows(0);
@@ -465,5 +576,22 @@ public class CRUDProduto extends javax.swing.JDialog {
     private javax.swing.JTextField tfPreco;
     private javax.swing.JTextField tfQuant;
     // End of variables declaration//GEN-END:variables
+
+    private void reiniciarMenu() {
+        tfNome.setEnabled(false);
+        tfNome.setText("");
+        tfPreco.setEnabled(false);
+        tfPreco.setText("");
+        tfQuant.setEnabled(false);
+        tfQuant.setText("");
+        cbMarca.setEnabled(false);
+        cbMarca.removeAllItems();
+        jNovo.setEnabled(true);
+        jSalvar.setEnabled(false);
+        jCancelar.setEnabled(false);
+        tfNome.setBackground(Color.white);
+        tfPreco.setBackground(Color.white);
+        tfQuant.setBackground(Color.white);
+    }
 
 }

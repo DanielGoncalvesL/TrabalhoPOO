@@ -21,5 +21,7 @@ public interface IRepoMarca {
     boolean inserir(Marca marca);
 
     List<Marca> listar();
+
+    public Marca buscarNome(String nome);
     
 }

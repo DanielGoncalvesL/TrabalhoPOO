@@ -2,7 +2,6 @@ package loja.negocio;
 
 import java.util.List;
 import loja.dados.IRepoProduto;
-import loja.dados.RepoProdutoArray;
 
 public class ControladorProduto {
 

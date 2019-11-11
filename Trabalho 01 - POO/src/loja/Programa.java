@@ -16,8 +16,8 @@ public class Programa {
                 IRepoMarca repoMarca = new RepoMarca();
                 
 		Sistema.getInstance(repoProduto, repoVenda, repoMarca);
-		MenuPrincipal menuPrincipal = new MenuPrincipal();
 		
+                MenuPrincipal menuPrincipal = new MenuPrincipal();
                 menuPrincipal.setLocationRelativeTo(null);
 		menuPrincipal.setVisible(true);
 		
