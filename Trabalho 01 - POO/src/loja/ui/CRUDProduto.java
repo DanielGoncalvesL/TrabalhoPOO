@@ -210,16 +210,10 @@ public class CRUDProduto extends javax.swing.JDialog {
         jSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table_save.png"))); // NOI18N
         jSalvar.setText("Salvar");
         jSalvar.setEnabled(false);
-        jSalvar.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jSalvarMenuSelected(evt);
-            }
-        });
         jSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jSalvarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jSalvarMouseEntered(evt);
             }
@@ -231,16 +225,10 @@ public class CRUDProduto extends javax.swing.JDialog {
 
         jEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page_edit.png"))); // NOI18N
         jEditar.setText("Editar");
-        jEditar.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jEditarMenuSelected(evt);
-            }
-        });
         jEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jEditarMouseEntered(evt);
             }
@@ -268,16 +256,10 @@ public class CRUDProduto extends javax.swing.JDialog {
 
         jExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page_delete.png"))); // NOI18N
         jExcluir.setText("Excluir");
-        jExcluir.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jExcluirMenuSelected(evt);
-            }
-        });
         jExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jExcluirMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jExcluirMouseEntered(evt);
             }
@@ -405,7 +387,30 @@ public class CRUDProduto extends javax.swing.JDialog {
         reiniciarMenu();
     }//GEN-LAST:event_jCancelarMouseClicked
 
-    private void jSalvarMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jSalvarMenuSelected
+    private void tbListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarMouseClicked
+        // TODO add your handling code here:
+        try {
+            jNovo.setEnabled(true);
+            jSalvar.setEnabled(false);
+            jCancelar.setEnabled(true);
+            tfNome.setEnabled(true);
+            tfPreco.setEnabled(true);
+            tfQuant.setEnabled(true);
+            cbMarca.setEnabled(true);
+            preencherSelect();
+            tfNome.setText((String) tbListar.getValueAt(tbListar.getSelectedRow(), 1));
+            String replace = (String) tbListar.getValueAt(tbListar.getSelectedRow(), 3);
+            replace = replace.replace("R$", "");
+            tfPreco.setText(replace);
+            double quant = (double) tbListar.getValueAt(tbListar.getSelectedRow(), 4);
+            replace = Double.toString(quant);
+            tfQuant.setText(replace);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao Selecionar Registro");
+        }
+    }//GEN-LAST:event_tbListarMouseClicked
+
+    private void jSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSalvarMouseClicked
         // TODO add your handling code here:
         boolean ok = true;
         if (tfNome.getText().equals("")) {
@@ -441,25 +446,9 @@ public class CRUDProduto extends javax.swing.JDialog {
             }
             reiniciarMenu();
         }
-    }//GEN-LAST:event_jSalvarMenuSelected
+    }//GEN-LAST:event_jSalvarMouseClicked
 
-    private void jExcluirMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jExcluirMenuSelected
-        // TODO add your handling code here:
-        try {
-            int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);
-            if (sis.excluir(cod)) {
-                JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
-                carregarProdutos();
-                reiniciarMenu();
-            } else {
-                JOptionPane.showMessageDialog(this, "Falha ao excluir!");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Selecione algum registro da tabela");
-        }
-    }//GEN-LAST:event_jExcluirMenuSelected
-
-    private void jEditarMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jEditarMenuSelected
+    private void jEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEditarMouseClicked
         // TODO add your handling code here:
         try {
             boolean ok = true;
@@ -501,30 +490,23 @@ public class CRUDProduto extends javax.swing.JDialog {
         } catch (Exception e) {
              JOptionPane.showMessageDialog(this, "Falha ao Alterar o Produto");
         }
-    }//GEN-LAST:event_jEditarMenuSelected
+    }//GEN-LAST:event_jEditarMouseClicked
 
-    private void tbListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarMouseClicked
+    private void jExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jExcluirMouseClicked
         // TODO add your handling code here:
         try {
-            jNovo.setEnabled(true);
-            jSalvar.setEnabled(false);
-            jCancelar.setEnabled(true);
-            tfNome.setEnabled(true);
-            tfPreco.setEnabled(true);
-            tfQuant.setEnabled(true);
-            cbMarca.setEnabled(true);
-            preencherSelect();
-            tfNome.setText((String) tbListar.getValueAt(tbListar.getSelectedRow(), 1));
-            String replace = (String) tbListar.getValueAt(tbListar.getSelectedRow(), 3);
-            replace = replace.replace("R$", "");
-            tfPreco.setText(replace);
-            double quant = (double) tbListar.getValueAt(tbListar.getSelectedRow(), 4);
-            replace = Double.toString(quant);
-            tfQuant.setText(replace);
+            int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);
+            if (sis.excluir(cod)) {
+                JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
+                carregarProdutos();
+                reiniciarMenu();
+            } else {
+                JOptionPane.showMessageDialog(this, "Falha ao excluir!");
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao Selecionar Registro");
+            JOptionPane.showMessageDialog(this, "Selecione algum registro da tabela");
         }
-    }//GEN-LAST:event_tbListarMouseClicked
+    }//GEN-LAST:event_jExcluirMouseClicked
 
     private void preencherSelect() {
         cbMarca.removeAllItems();
