@@ -23,5 +23,7 @@ public interface IRepoMarca {
     List<Marca> listar();
 
     public Marca buscarNome(String nome);
+
+    public Marca buscarMarca(int marca);
     
 }

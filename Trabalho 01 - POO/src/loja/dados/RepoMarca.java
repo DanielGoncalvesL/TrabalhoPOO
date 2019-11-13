@@ -6,6 +6,7 @@
 package loja.dados;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import loja.negocio.Marca;
 
@@ -70,12 +71,32 @@ public class RepoMarca implements IRepoMarca {
         }
     }
     
-       public Marca buscarNome(String nome) {
+    /**
+     *
+     * @param nome
+     * @return
+     */
+    public Marca buscarNome(String nome) {
         if (nome != null) {
             for (Marca marca : marcas) {
                 if (marca != null && marca.getNome().equals(nome)) {
                     return marca;
                 }
+            }
+        }
+        return null;
+    }
+    
+    /**
+     *
+     * @param codigo
+     * @return
+     */
+    @Override
+    public Marca buscarMarca(int codigo) {
+        for (Marca marca : marcas) {
+            if (marca.getId() == codigo) {
+                return marca;
             }
         }
         return null;

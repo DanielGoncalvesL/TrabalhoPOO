@@ -7,7 +7,6 @@ package loja.negocio;
 
 import java.util.List;
 import loja.dados.IRepoMarca;
-import loja.dados.RepoMarca;
 
 /**
  *
@@ -44,5 +43,9 @@ public class ControladorMarca {
     
     public Marca buscarNome(String nome){
         return rMarca.buscarNome(nome);
+    }
+
+    Marca buscarMarca(int marca) {
+        return rMarca.buscarMarca(marca);
     }
 }

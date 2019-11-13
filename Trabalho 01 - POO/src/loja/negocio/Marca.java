@@ -10,12 +10,11 @@ package loja.negocio;
  * @author Daniel
  */
 public class Marca {
-    private int id = 0;
+    private int id;
     private String nome;
     private String RepresentanteComercial;
 
     public Marca(String nome, String representanteComercial) {
-        this.id = this.id + 1;
         this.nome = nome;
         this.RepresentanteComercial = representanteComercial;
     }

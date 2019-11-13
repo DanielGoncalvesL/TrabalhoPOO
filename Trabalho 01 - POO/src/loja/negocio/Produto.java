@@ -4,11 +4,13 @@ public class Produto {
 
     private int codigo;
     private String nome;
-    private Marca marca;
+    private int marca;
     private double preco;
     private double quantEstoque;
     private int Vendido;
     private int Excluido;
+    
+    private Sistema sis;
 
     public int getExcluido() {
         return Excluido;
@@ -26,14 +28,29 @@ public class Produto {
         Vendido = vendido;
     }
 
-    public Produto(String nome, Marca marca, double valor, double quantEstoque) {
+    /**
+     *
+     * @param nome
+     * @param marca
+     * @param valor
+     * @param quantEstoque
+     */
+    public Produto(String nome, int marca, double valor, double quantEstoque) {
         this.nome = nome;
         this.marca = marca;
         this.preco = valor;
         this.quantEstoque = quantEstoque;
     }
 
-    public Produto(int codigo, String nome, Marca marca, double valor, double quant) {
+    /**
+     *
+     * @param codigo
+     * @param nome
+     * @param marca
+     * @param valor
+     * @param quant
+     */
+    public Produto(int codigo, String nome, int marca, double valor, double quant) {
         // TODO Auto-generated constructor stub
         this.codigo = codigo;
         this.nome = nome;
@@ -58,11 +75,19 @@ public class Produto {
         this.nome = nome;
     }
 
-    public Marca getDescricao() {
-        return marca;
+    /**
+     *
+     * @return
+     */
+    public int getMarca() {
+        return this.marca;
     }
 
-    public void setDescricao(Marca marca) {
+    /**
+     *
+     * @param marca
+     */
+    public void setMarca(int marca) {
         this.marca = marca;
     }
 

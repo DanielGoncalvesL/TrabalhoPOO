@@ -164,7 +164,7 @@ public class Listar extends javax.swing.JInternalFrame {
                 modelo.addRow(new Object[]{
                     _item.getCodigo(),
                     _item.getNome(),
-                    _item.getDescricao(),
+                    _item.getMarca(),
                     "R$ " + _item.getPreco(),
                     _item.getQuantEstoque()
 
@@ -181,7 +181,7 @@ public class Listar extends javax.swing.JInternalFrame {
             modelo.addRow(new Object[]{
                 _item.getCodigo(),
                 _item.getNome(),
-                _item.getDescricao(),
+                _item.getMarca(),
                 "R$ " + _item.getPreco(),
                 _item.getQuantEstoque()
 

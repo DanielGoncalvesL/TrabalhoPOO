@@ -6,6 +6,7 @@
 package loja.ui;
 
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -65,10 +66,10 @@ public class CRUDProduto extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jNovo = new javax.swing.JMenu();
-        jSalvar = new javax.swing.JMenu();
         jEditar = new javax.swing.JMenu();
-        jCancelar = new javax.swing.JMenu();
         jExcluir = new javax.swing.JMenu();
+        jSalvar = new javax.swing.JMenu();
+        jCancelar = new javax.swing.JMenu();
         jSair = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -207,6 +208,36 @@ public class CRUDProduto extends javax.swing.JDialog {
         });
         jMenuBar1.add(jNovo);
 
+        jEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page_edit.png"))); // NOI18N
+        jEditar.setText("Editar");
+        jEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jEditarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jEditarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jEditarMouseExited(evt);
+            }
+        });
+        jMenuBar1.add(jEditar);
+
+        jExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page_delete.png"))); // NOI18N
+        jExcluir.setText("Excluir");
+        jExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jExcluirMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jExcluirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jExcluirMouseExited(evt);
+            }
+        });
+        jMenuBar1.add(jExcluir);
+
         jSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table_save.png"))); // NOI18N
         jSalvar.setText("Salvar");
         jSalvar.setEnabled(false);
@@ -223,21 +254,6 @@ public class CRUDProduto extends javax.swing.JDialog {
         });
         jMenuBar1.add(jSalvar);
 
-        jEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page_edit.png"))); // NOI18N
-        jEditar.setText("Editar");
-        jEditar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jEditarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jEditarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jEditarMouseExited(evt);
-            }
-        });
-        jMenuBar1.add(jEditar);
-
         jCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel.png"))); // NOI18N
         jCancelar.setText("Cancelar");
         jCancelar.setEnabled(false);
@@ -253,21 +269,6 @@ public class CRUDProduto extends javax.swing.JDialog {
             }
         });
         jMenuBar1.add(jCancelar);
-
-        jExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page_delete.png"))); // NOI18N
-        jExcluir.setText("Excluir");
-        jExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jExcluirMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jExcluirMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jExcluirMouseExited(evt);
-            }
-        });
-        jMenuBar1.add(jExcluir);
 
         jSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/link_go.png"))); // NOI18N
         jSair.setText("Sair");
@@ -405,8 +406,10 @@ public class CRUDProduto extends javax.swing.JDialog {
             double quant = (double) tbListar.getValueAt(tbListar.getSelectedRow(), 4);
             replace = Double.toString(quant);
             tfQuant.setText(replace);
+            Marca marca =  (Marca) tbListar.getValueAt(tbListar.getSelectedRow(), 2);
+            cbMarca.setSelectedItem(marca);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao Selecionar Registro");
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_tbListarMouseClicked
 
@@ -436,7 +439,7 @@ public class CRUDProduto extends javax.swing.JDialog {
             double preco = Double.parseDouble(tfPreco.getText());
             double quant = Double.parseDouble(tfQuant.getText());
             Marca marca = (Marca) cbMarca.getSelectedItem();
-            Produto produto = new Produto(nome, marca, preco, quant);
+            Produto produto = new Produto(nome, marca.getId(), preco, quant);
             if (sis.inserir(produto)) {
                 JOptionPane.showMessageDialog(this, "Produto Inserido com Sucesso!");
                 carregarProdutos();
@@ -475,7 +478,7 @@ public class CRUDProduto extends javax.swing.JDialog {
                 double preco = Double.parseDouble(tfPreco.getText());
                 double quant = Double.parseDouble(tfQuant.getText());
                 Marca marca = (Marca) cbMarca.getSelectedItem();
-                Produto produto = new Produto(nome, marca, preco, quant);
+                Produto produto = new Produto(nome, marca.getId(), preco, quant);
                 int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);
                 produto.setCodigo(cod);
                 if (sis.alterar(produto, cod)) {
@@ -487,7 +490,7 @@ public class CRUDProduto extends javax.swing.JDialog {
                 }
                 reiniciarMenu();
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException | HeadlessException e) {
              JOptionPane.showMessageDialog(this, "Falha ao Alterar o Produto");
         }
     }//GEN-LAST:event_jEditarMouseClicked
@@ -523,10 +526,11 @@ public class CRUDProduto extends javax.swing.JDialog {
         DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
         modelo.setNumRows(0);
         produtos.forEach((_item) -> {
+            Marca marca = sis.buscarMarca(_item.getMarca());
             modelo.addRow(new Object[]{
                 _item.getCodigo(),
                 _item.getNome(),
-                _item.getDescricao(),
+                marca,
                 "R$ " + _item.getPreco(),
                 _item.getQuantEstoque()
 

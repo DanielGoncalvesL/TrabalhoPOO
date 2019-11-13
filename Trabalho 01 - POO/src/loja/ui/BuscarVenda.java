@@ -172,7 +172,7 @@ public class BuscarVenda extends javax.swing.JInternalFrame {
             modelo.setNumRows(0);
             for (Item itensVendido : venda.getItensVendidos()) {
                 modelo.addRow(new Object[]{
-                    itensVendido.getProduto().getDescricao(),
+                    itensVendido.getProduto().getMarca(),
                     itensVendido.getProduto().getNome(),
                     itensVendido.getPreco(),
                     itensVendido.getQuantidade()
