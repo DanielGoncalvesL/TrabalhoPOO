@@ -37,6 +37,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         administrador = new javax.swing.JMenu();
         inserirProduto = new javax.swing.JMenuItem();
+        inserirMarca = new javax.swing.JMenuItem();
         listarVendas = new javax.swing.JMenuItem();
         listarVendasDia = new javax.swing.JMenuItem();
         buscarVenda = new javax.swing.JMenuItem();
@@ -69,6 +70,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         administrador.add(inserirProduto);
+
+        inserirMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/add.png"))); // NOI18N
+        inserirMarca.setText("Inserir Marca");
+        inserirMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirMarcaActionPerformed(evt);
+            }
+        });
+        administrador.add(inserirMarca);
 
         listarVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table.png"))); // NOI18N
         listarVendas.setText("Listar Vendas");
@@ -176,7 +186,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         data.setVisible(true);
         ReiniciarJanela();
         String date = data.getData();
-        if(date != null){
+        if (date != null) {
             listarVenda listar = new listarVenda(date);
             jPanel1.add(listar);
             listar.setVisible(true);
@@ -191,10 +201,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         venda.setVisible(true);
     }//GEN-LAST:event_realizarVendaActionPerformed
 
+    private void inserirMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirMarcaActionPerformed
+        // TODO add your handling code here:
+        LimparJanelas();
+        CRUDMarca CadUser = new CRUDMarca(new javax.swing.JFrame(), true);
+        CadUser.setLocationRelativeTo(null);
+        CadUser.setVisible(true);
+
+    }//GEN-LAST:event_inserirMarcaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu administrador;
     private javax.swing.JMenuItem buscarVenda;
     private javax.swing.JMenu funcionario;
+    private javax.swing.JMenuItem inserirMarca;
     private javax.swing.JMenuItem inserirProduto;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;

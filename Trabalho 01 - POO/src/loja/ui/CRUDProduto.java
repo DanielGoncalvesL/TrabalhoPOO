@@ -303,6 +303,9 @@ public class CRUDProduto extends javax.swing.JDialog {
 
     private void jAdicionarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdicionarMarcaActionPerformed
         // TODO add your handling code here:
+        CRUDMarca marca = new CRUDMarca(new javax.swing.JFrame(), true);
+        marca.setLocationRelativeTo(null);
+        marca.setVisible(true);
     }//GEN-LAST:event_jAdicionarMarcaActionPerformed
 
     private void jSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSairMouseEntered
@@ -515,8 +518,8 @@ public class CRUDProduto extends javax.swing.JDialog {
         cbMarca.removeAllItems();
         List<Marca> marcas = sis.listarMarca();
         if (marcas != null) {
-            for (int i = 0; i < marcas.size(); i++) {
-                cbMarca.addItem(marcas.get(i));
+            for (Marca marca : marcas) {
+                cbMarca.addItem(marca);
             }
         }
     }
