@@ -42,7 +42,6 @@ public class RepoMarca implements IRepoMarca {
                 marcas.remove(i);
                 return true;
         }
-        return false;
     }
         return false;
     }

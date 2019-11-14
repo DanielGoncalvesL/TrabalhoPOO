@@ -6,6 +6,7 @@
 package loja.ui;
 
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -312,7 +313,7 @@ public class CRUDMarca extends javax.swing.JDialog {
             } else {
                 JOptionPane.showMessageDialog(this, "Falha ao excluir!");
             }
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, "Selecione algum registro da tabela");
         }
     }//GEN-LAST:event_jExcluirMouseClicked
