@@ -110,7 +110,7 @@ public class TelaLogin extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (sis.verificarLogin(tfLogin.getText(), new String(tfSenha.getPassword()))) {
             JOptionPane.showMessageDialog(this, "Bem Vindo " + tfLogin.getText());
-            MenuPrincipal menuPrincipal = new MenuPrincipal(sis.tipoUsuario(tfLogin.getText()));
+            MenuPrincipal menuPrincipal = new MenuPrincipal(sis.tipoUsuario(tfLogin.getText()), tfLogin.getText());
             menuPrincipal.setLocationRelativeTo(null);
             menuPrincipal.setVisible(true);
             this.dispose();

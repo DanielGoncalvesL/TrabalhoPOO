@@ -31,6 +31,7 @@ public class CRUDUsuario extends javax.swing.JDialog {
         super(parent, modal);
         sis = Sistema.getInstance();
         initComponents();
+        carregarUsuarios();
     }
 
     /**
@@ -269,6 +270,7 @@ public class CRUDUsuario extends javax.swing.JDialog {
         jCancelar.setEnabled(true);
         tfLogin.setEnabled(true);
         cbTipo.setEnabled(true);
+        tfSenha.setEnabled(true);
         preencherSelect();
     }//GEN-LAST:event_jNovoMouseClicked
 
@@ -299,16 +301,16 @@ public class CRUDUsuario extends javax.swing.JDialog {
                 Usuario usuario = new Usuario(nome, senha, tipo);
                  int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);
                 if (sis.alterarUsuario(usuario, cod)) {
-                    JOptionPane.showMessageDialog(this, "Produto Alterado com Sucesso!");
+                    JOptionPane.showMessageDialog(this, "Usuario Alterado com Sucesso!");
                     carregarUsuarios();
                 } else {
-                    JOptionPane.showMessageDialog(this, "O Produto não foi Alterado!");
+                    JOptionPane.showMessageDialog(this, "O Usuario não foi Alterado!");
                     carregarUsuarios();
                 }
                 reiniciarMenu();
             }
         } catch (NumberFormatException | HeadlessException e) {
-            JOptionPane.showMessageDialog(this, "Falha ao Alterar o Produto");
+            JOptionPane.showMessageDialog(this, "Falha ao Alterar o Usuario");
         }
     }//GEN-LAST:event_jEditarMouseClicked
 
@@ -326,14 +328,14 @@ public class CRUDUsuario extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);
-            if (sis.excluir(cod)) {
-                JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
+            if (sis.excluirUsuario(cod)) {
+                JOptionPane.showMessageDialog(this, "Usuario excluído com sucesso!");
                 carregarUsuarios();
                 reiniciarMenu();
             } else {
                 JOptionPane.showMessageDialog(this, "Falha ao excluir!");
             }
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, "Selecione algum registro da tabela");
         }
     }//GEN-LAST:event_jExcluirMouseClicked
@@ -363,10 +365,10 @@ public class CRUDUsuario extends javax.swing.JDialog {
             String tipo = (String) cbTipo.getSelectedItem();
             Usuario usuario = new Usuario(nome, senha, tipo);
             if (sis.inserirUsuario(usuario)) {
-                JOptionPane.showMessageDialog(this, "Produto Inserido com Sucesso!");
+                JOptionPane.showMessageDialog(this, "Usuario Inserido com Sucesso!");
                 carregarUsuarios();
             } else {
-                JOptionPane.showMessageDialog(this, "O Produto não foi Inserido!");
+                JOptionPane.showMessageDialog(this, "O Usuario não foi Inserido!");
                 carregarUsuarios();
             }
             reiniciarMenu();
@@ -442,6 +444,8 @@ public class CRUDUsuario extends javax.swing.JDialog {
         jSalvar.setEnabled(false);
         jCancelar.setEnabled(false);
         tfLogin.setBackground(Color.white);
+        tfSenha.setText("");
+        tfSenha.setEnabled(false);
     }
 
     private void preencherSelect() {

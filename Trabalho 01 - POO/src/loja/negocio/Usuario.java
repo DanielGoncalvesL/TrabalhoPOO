@@ -84,4 +84,10 @@ public class Usuario {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Usuario)) return false;
+        return obj == this || login.equals(((Usuario) obj).getUser());
+    }
 }

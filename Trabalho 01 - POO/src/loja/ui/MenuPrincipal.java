@@ -20,11 +20,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
      * Creates new form MenuPrincipal
      *
      * @param tipo
+     * @param nome
      */
-    public MenuPrincipal(String tipo) {
+    public MenuPrincipal(String tipo, String nome) {
         sis = Sistema.getInstance();
         this.tipo = tipo;
         initComponents();
+        labelUsuario.setText("Usuario: " + nome);
     }
 
     /**
@@ -37,6 +39,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        labelUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         administrador = new javax.swing.JMenu();
         inserirProduto = new javax.swing.JMenuItem();
@@ -61,6 +64,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 279, Short.MAX_VALUE)
         );
+
+        labelUsuario.setText("Usuario: ");
 
         administrador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user_gray.png"))); // NOI18N
         administrador.setText("Administrador");
@@ -133,10 +138,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelUsuario)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelUsuario)
+                .addContainerGap())
         );
 
         pack();
@@ -220,6 +233,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void inserirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirUsuarioActionPerformed
         // TODO add your handling code here:
         if (tipo.equals("Administrador")) {
+            LimparJanelas();
+            CRUDUsuario CadUser = new CRUDUsuario(new javax.swing.JFrame(), true);
+            CadUser.setLocationRelativeTo(null);
+            CadUser.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Acesso Negado");
         }
@@ -233,6 +250,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem inserirUsuario;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelUsuario;
     private javax.swing.JMenuItem listarVendas;
     private javax.swing.JMenuItem listarVendasDia;
     private javax.swing.JMenuItem realizarVenda;

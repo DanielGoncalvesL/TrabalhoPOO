@@ -53,7 +53,7 @@ public class RepoUsuario implements IRepoUsuario{
         Connection conexao = Conexao.getConexao();
         PreparedStatement stmt = null;
 
-        if (!this.listarUsuarios().stream().noneMatch((user) -> (user.getUser().equals(usuario)))) {
+        if (!this.listarUsuarios().stream().noneMatch((user) -> (user.equals(usuario)))) {
             return false;
         }
         try {
