@@ -51,5 +51,6 @@ foreign key (idItem) references Item(idItem),
 foreign key (idVenda) references Venda(idVenda)
 );
 
+insert into usuario (login, senha, tipo) values ("daniel", "1234", "Administrador");
 insert into usuario (login, senha, tipo) values ("luciano", "1234", "Atendente");
 

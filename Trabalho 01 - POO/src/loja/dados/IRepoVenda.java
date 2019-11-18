@@ -90,5 +90,10 @@ public interface IRepoVenda {
      */
     public Item buscarItem(int idItem);
     
+    /**
+     *
+     * @param idVenda
+     * @return
+     */
     public Venda buscarVenda(int idVenda);
 }

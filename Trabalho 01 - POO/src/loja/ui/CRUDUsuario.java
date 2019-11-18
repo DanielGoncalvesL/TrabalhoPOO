@@ -6,15 +6,19 @@
 package loja.ui;
 
 import java.awt.Color;
+import java.awt.HeadlessException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import loja.negocio.Sistema;
+import loja.negocio.Usuario;
 
 /**
  *
  * @author Daniel
  */
 public class CRUDUsuario extends javax.swing.JDialog {
-    
+
     private final Sistema sis;
 
     /**
@@ -264,8 +268,6 @@ public class CRUDUsuario extends javax.swing.JDialog {
         jSalvar.setEnabled(true);
         jCancelar.setEnabled(true);
         tfLogin.setEnabled(true);
-        tfPreco.setEnabled(true);
-        tfQuant.setEnabled(true);
         cbTipo.setEnabled(true);
         preencherSelect();
     }//GEN-LAST:event_jNovoMouseClicked
@@ -290,32 +292,18 @@ public class CRUDUsuario extends javax.swing.JDialog {
             } else {
                 tfLogin.setBackground(Color.WHITE);
             }
-            if (tfQuant.getText().equals("")) {
-                ok = false;
-                tfQuant.setBackground(Color.PINK);
-            } else {
-                tfQuant.setBackground(Color.WHITE);
-            }
-            if (tfPreco.getText().equals("") || Double.parseDouble(tfPreco.getText()) <= 0) {
-                ok = false;
-                tfPreco.setBackground(Color.PINK);
-            } else {
-                tfPreco.setBackground(Color.WHITE);
-            }
             if (ok) {
                 String nome = tfLogin.getText();
-                double preco = Double.parseDouble(tfPreco.getText());
-                int quant = Integer.parseInt(tfQuant.getText());
-                Marca marca = (Marca) cbTipo.getSelectedItem();
-                Produto produto = new Produto(nome, marca.getId(), preco, quant);
-                int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);
-                produto.setCodigo(cod);
-                if (sis.alterar(produto, cod)) {
+                String senha = new String(tfSenha.getPassword());
+                String tipo = (String) cbTipo.getSelectedItem();
+                Usuario usuario = new Usuario(nome, senha, tipo);
+                 int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);
+                if (sis.alterarUsuario(usuario, cod)) {
                     JOptionPane.showMessageDialog(this, "Produto Alterado com Sucesso!");
-                    carregarProdutos();
+                    carregarUsuarios();
                 } else {
                     JOptionPane.showMessageDialog(this, "O Produto não foi Alterado!");
-                    carregarProdutos();
+                    carregarUsuarios();
                 }
                 reiniciarMenu();
             }
@@ -340,7 +328,7 @@ public class CRUDUsuario extends javax.swing.JDialog {
             int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);
             if (sis.excluir(cod)) {
                 JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
-                carregarProdutos();
+                carregarUsuarios();
                 reiniciarMenu();
             } else {
                 JOptionPane.showMessageDialog(this, "Falha ao excluir!");
@@ -369,30 +357,17 @@ public class CRUDUsuario extends javax.swing.JDialog {
         } else {
             tfLogin.setBackground(Color.WHITE);
         }
-        if (tfQuant.getText().equals("")) {
-            ok = false;
-            tfQuant.setBackground(Color.PINK);
-        } else {
-            tfQuant.setBackground(Color.WHITE);
-        }
-        if (tfPreco.getText().equals("") || Double.parseDouble(tfPreco.getText()) <= 0) {
-            ok = false;
-            tfPreco.setBackground(Color.PINK);
-        } else {
-            tfPreco.setBackground(Color.WHITE);
-        }
         if (ok) {
             String nome = tfLogin.getText();
-            double preco = Double.parseDouble(tfPreco.getText());
-            int quant = Integer.parseInt(tfQuant.getText());
-            Marca marca = (Marca) cbTipo.getSelectedItem();
-            Produto produto = new Produto(nome, marca.getId(), preco, quant);
-            if (sis.inserir(produto)) {
+            String senha = new String(tfSenha.getPassword());
+            String tipo = (String) cbTipo.getSelectedItem();
+            Usuario usuario = new Usuario(nome, senha, tipo);
+            if (sis.inserirUsuario(usuario)) {
                 JOptionPane.showMessageDialog(this, "Produto Inserido com Sucesso!");
-                carregarProdutos();
+                carregarUsuarios();
             } else {
                 JOptionPane.showMessageDialog(this, "O Produto não foi Inserido!");
-                carregarProdutos();
+                carregarUsuarios();
             }
             reiniciarMenu();
         }
@@ -450,13 +425,14 @@ public class CRUDUsuario extends javax.swing.JDialog {
             preencherSelect();
             tfLogin.setText((String) tbListar.getValueAt(tbListar.getSelectedRow(), 1));
             String tipo = (String) tbListar.getValueAt(tbListar.getSelectedRow(), 2);
-            cbTipo.setSelectedItem(tipo);S
-            tfSenha.setText(tipo);
+            Usuario usuario = sis.buscarUsuario((int) tbListar.getValueAt(tbListar.getSelectedRow(), 0));
+            tfSenha.setText(usuario.getSenha());
+            cbTipo.setSelectedItem(tipo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_tbListarMouseClicked
-    
+
     private void reiniciarMenu() {
         tfLogin.setEnabled(false);
         tfLogin.setText("");
@@ -467,10 +443,23 @@ public class CRUDUsuario extends javax.swing.JDialog {
         jCancelar.setEnabled(false);
         tfLogin.setBackground(Color.white);
     }
-    
+
     private void preencherSelect() {
         cbTipo.addItem("Administrador");
         cbTipo.addItem("Atendente");
+    }
+
+    private void carregarUsuarios() {
+        ArrayList<Usuario> usuarios = (ArrayList<Usuario>) sis.listarUsuarios();
+        DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
+        modelo.setNumRows(0);
+        usuarios.forEach((usuario) -> {
+            modelo.addRow(new Object[]{
+                usuario.getId(),
+                usuario.getUser(),
+                usuario.getTipo()
+            });
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

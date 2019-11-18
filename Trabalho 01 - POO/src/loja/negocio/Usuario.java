@@ -13,8 +13,21 @@ public class Usuario {
 
     private int idUsuario;
     private String login;
-    private int senha;
+    private String senha;
     private String tipo;
+
+    public Usuario(String nome, String senha, String tipo) {
+        this.login = nome;
+        this.senha = senha;
+        this.tipo = tipo;
+    }
+
+    public Usuario(int id, String nome, String senha, String tipo) {
+        this.login = nome;
+        this.senha = senha;
+        this.tipo = tipo;
+        this.idUsuario = id;
+    }
 
     /**
      * @return the id
@@ -47,14 +60,14 @@ public class Usuario {
     /**
      * @return the senha
      */
-    public int getSenha() {
+    public String getSenha() {
         return senha;
     }
 
     /**
      * @param senha the senha to set
      */
-    public void setSenha(int senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 

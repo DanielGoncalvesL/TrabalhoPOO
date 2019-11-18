@@ -5,18 +5,27 @@
  */
 package loja.dados;
 
+import java.util.List;
 import loja.negocio.Usuario;
 
 /**
  *
- * @author Daniel
+ * @author josin
  */
 public interface IRepoUsuario {
 
+    boolean alterarUsuario(Usuario usuario, int codigo);
+
+    Usuario buscarUsuario(int codigo);
+
+    boolean excluirUsuario(int codigo);
+
     boolean inserirUsuario(Usuario usuario);
 
-    boolean verificarLogin(String login, String senha);
-    
+    List<Usuario> listarUsuarios();
+
     String tipoUsuario(String usuario);
+
+    boolean verificarLogin(String login, String senha);
     
 }

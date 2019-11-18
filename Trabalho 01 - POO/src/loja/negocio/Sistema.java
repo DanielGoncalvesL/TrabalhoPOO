@@ -143,12 +143,33 @@ public final class Sistema {
         return cVenda.buscarVenda(idVenda);
     }
 
-    public boolean verificarLogin(String login, String senha) {
-        return cUsuario.verificarLogin(login, senha);
+   
+    public boolean alterarUsuario(Usuario usuario, int codigo){
+        return cUsuario.alterarUsuario(usuario, codigo);
     }
-    
+
+    public Usuario buscarUsuario(int codigo){
+        return cUsuario.buscarUsuario(codigo);
+    }
+
+    public boolean excluirUsuario(int codigo){
+        return cUsuario.excluirUsuario(codigo);
+    }
+
+    public boolean inserirUsuario(Usuario usuario){
+        return cUsuario.inserirUsuario(usuario);
+    }
+
+    public List<Usuario> listarUsuarios(){
+        return cUsuario.listarUsuarios();
+    }
+
     public String tipoUsuario(String usuario){
         return cUsuario.tipoUsuario(usuario);
+    }
+
+    public boolean verificarLogin(String login, String senha){
+        return cUsuario.verificarLogin(login, senha);
     }
 
     public void init() {
