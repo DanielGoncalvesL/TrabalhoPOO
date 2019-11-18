@@ -5,6 +5,7 @@
  */
 package loja.ui;
 
+import javax.swing.JOptionPane;
 import loja.negocio.Sistema;
 
 /**
@@ -13,11 +14,16 @@ import loja.negocio.Sistema;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
+    private final String tipo;
+
     /**
      * Creates new form MenuPrincipal
+     *
+     * @param tipo
      */
-    public MenuPrincipal() {
+    public MenuPrincipal(String tipo) {
         sis = Sistema.getInstance();
+        this.tipo = tipo;
         initComponents();
     }
 
@@ -35,6 +41,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         administrador = new javax.swing.JMenu();
         inserirProduto = new javax.swing.JMenuItem();
         inserirMarca = new javax.swing.JMenuItem();
+        inserirUsuario = new javax.swing.JMenuItem();
         listarVendas = new javax.swing.JMenuItem();
         listarVendasDia = new javax.swing.JMenuItem();
         funcionario = new javax.swing.JMenu();
@@ -75,6 +82,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         administrador.add(inserirMarca);
+
+        inserirUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user_add.png"))); // NOI18N
+        inserirUsuario.setText("Inserir Usuario");
+        inserirUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirUsuarioActionPerformed(evt);
+            }
+        });
+        administrador.add(inserirUsuario);
 
         listarVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/table.png"))); // NOI18N
         listarVendas.setText("Listar Vendas");
@@ -139,32 +155,44 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void inserirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirProdutoActionPerformed
         // TODO add your handling code here:
-        LimparJanelas();
-        CRUDProduto CadUser = new CRUDProduto(new javax.swing.JFrame(), true);
-        CadUser.setLocationRelativeTo(null);
-        CadUser.setVisible(true);
+        if (tipo.equals("Administrador")) {
+            LimparJanelas();
+            CRUDProduto CadUser = new CRUDProduto(new javax.swing.JFrame(), true);
+            CadUser.setLocationRelativeTo(null);
+            CadUser.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Acesso Negado");
+        }
     }//GEN-LAST:event_inserirProdutoActionPerformed
 
     private void listarVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarVendasActionPerformed
         // TODO add your handling code here:
-        LimparJanelas();
-        listarVenda listar = new listarVenda();
-        jPanel1.add(listar);
-        listar.setVisible(true);
+        if (tipo.equals("Administrador")) {
+            LimparJanelas();
+            listarVenda listar = new listarVenda();
+            jPanel1.add(listar);
+            listar.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Acesso Negado");
+        }
     }//GEN-LAST:event_listarVendasActionPerformed
 
     private void listarVendasDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarVendasDiaActionPerformed
         // TODO add your handling code here:
-        LimparJanelas();
-        DataVenda data = new DataVenda(new javax.swing.JFrame(), true);
-        data.setLocationRelativeTo(null);
-        data.setVisible(true);
-        ReiniciarJanela();
-        String date = data.getData();
-        if (date != null) {
-            listarVenda listar = new listarVenda(date);
-            jPanel1.add(listar);
-            listar.setVisible(true);
+        if (tipo.equals("Administrador")) {
+            LimparJanelas();
+            DataVenda data = new DataVenda(new javax.swing.JFrame(), true);
+            data.setLocationRelativeTo(null);
+            data.setVisible(true);
+            ReiniciarJanela();
+            String date = data.getData();
+            if (date != null) {
+                listarVenda listar = new listarVenda(date);
+                jPanel1.add(listar);
+                listar.setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Acesso Negado");
         }
     }//GEN-LAST:event_listarVendasDiaActionPerformed
 
@@ -178,18 +206,31 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void inserirMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirMarcaActionPerformed
         // TODO add your handling code here:
-        LimparJanelas();
-        CRUDMarca CadUser = new CRUDMarca(new javax.swing.JFrame(), true);
-        CadUser.setLocationRelativeTo(null);
-        CadUser.setVisible(true);
+        if (tipo.equals("Administrador")) {
+            LimparJanelas();
+            CRUDMarca CadUser = new CRUDMarca(new javax.swing.JFrame(), true);
+            CadUser.setLocationRelativeTo(null);
+            CadUser.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Acesso Negado");
+        }
 
     }//GEN-LAST:event_inserirMarcaActionPerformed
+
+    private void inserirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirUsuarioActionPerformed
+        // TODO add your handling code here:
+        if (tipo.equals("Administrador")) {
+        } else {
+            JOptionPane.showMessageDialog(this, "Acesso Negado");
+        }
+    }//GEN-LAST:event_inserirUsuarioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu administrador;
     private javax.swing.JMenu funcionario;
     private javax.swing.JMenuItem inserirMarca;
     private javax.swing.JMenuItem inserirProduto;
+    private javax.swing.JMenuItem inserirUsuario;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem listarVendas;

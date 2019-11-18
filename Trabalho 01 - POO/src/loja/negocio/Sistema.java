@@ -3,6 +3,7 @@ package loja.negocio;
 import java.util.List;
 import loja.dados.IRepoMarca;
 import loja.dados.IRepoProduto;
+import loja.dados.IRepoUsuario;
 import loja.dados.IRepoVenda;
 
 public final class Sistema {
@@ -15,15 +16,18 @@ public final class Sistema {
 
     private final ControladorMarca cMarca;
 
-    private Sistema(IRepoProduto repoProduto, IRepoVenda repovenda, IRepoMarca repoMarca) {
+    private final ControladorUsuario cUsuario;
+
+    private Sistema(IRepoProduto repoProduto, IRepoVenda repovenda, IRepoMarca repoMarca, IRepoUsuario repoUsuario) {
         cProduto = new ControladorProduto(repoProduto);
         cVenda = new ControladorVenda(repovenda);
         cMarca = new ControladorMarca(repoMarca);
+        cUsuario = new ControladorUsuario(repoUsuario);
     }
 
-    public static Sistema getInstance(IRepoProduto repoProduto, IRepoVenda repovenda, IRepoMarca repoMarca) {
+    public static Sistema getInstance(IRepoProduto repoProduto, IRepoVenda repovenda, IRepoMarca repoMarca, IRepoUsuario repoUsuario) {
         if (instance == null) {
-            instance = new Sistema(repoProduto, repovenda, repoMarca);
+            instance = new Sistema(repoProduto, repovenda, repoMarca, repoUsuario);
         }
         return instance;
     }
@@ -130,13 +134,21 @@ public final class Sistema {
         List<Item> itens = buscarItens(i);
         return cProduto.abaterEstoque(itens);
     }
-    
-    public List<Item> buscarItens(int id){
+
+    public List<Item> buscarItens(int id) {
         return cVenda.buscarItens(id);
     }
-    
-    public Venda buscarVenda(int idVenda){
+
+    public Venda buscarVenda(int idVenda) {
         return cVenda.buscarVenda(idVenda);
+    }
+
+    public boolean verificarLogin(String login, String senha) {
+        return cUsuario.verificarLogin(login, senha);
+    }
+    
+    public String tipoUsuario(String usuario){
+        return cUsuario.tipoUsuario(usuario);
     }
 
     public void init() {
