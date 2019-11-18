@@ -376,6 +376,7 @@ public class CRUDProduto extends javax.swing.JDialog {
 
     private void jNovoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jNovoMouseClicked
         // TODO add your handling code here:
+        reiniciarMenu();
         jNovo.setEnabled(false);
         jSalvar.setEnabled(true);
         jCancelar.setEnabled(true);
@@ -406,8 +407,8 @@ public class CRUDProduto extends javax.swing.JDialog {
             String replace = (String) tbListar.getValueAt(tbListar.getSelectedRow(), 3);
             replace = replace.replace("R$", "");
             tfPreco.setText(replace);
-            double quant = (double) tbListar.getValueAt(tbListar.getSelectedRow(), 4);
-            replace = Double.toString(quant);
+            int quant = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 4);
+            replace = Integer.toString(quant);
             tfQuant.setText(replace);
             Marca marca =  (Marca) tbListar.getValueAt(tbListar.getSelectedRow(), 2);
             cbMarca.setSelectedItem(marca);
@@ -440,7 +441,7 @@ public class CRUDProduto extends javax.swing.JDialog {
         if (ok) {
             String nome = tfNome.getText();
             double preco = Double.parseDouble(tfPreco.getText());
-            double quant = Double.parseDouble(tfQuant.getText());
+            int quant = Integer.parseInt(tfQuant.getText());
             Marca marca = (Marca) cbMarca.getSelectedItem();
             Produto produto = new Produto(nome, marca.getId(), preco, quant);
             if (sis.inserir(produto)) {
@@ -479,7 +480,7 @@ public class CRUDProduto extends javax.swing.JDialog {
             if (ok) {
                 String nome = tfNome.getText();
                 double preco = Double.parseDouble(tfPreco.getText());
-                double quant = Double.parseDouble(tfQuant.getText());
+                int quant = Integer.parseInt(tfQuant.getText());
                 Marca marca = (Marca) cbMarca.getSelectedItem();
                 Produto produto = new Produto(nome, marca.getId(), preco, quant);
                 int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);

@@ -1,90 +1,135 @@
 package loja.dados;
 
+import conexao.Conexao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import loja.negocio.Item;
 import loja.negocio.Produto;
-import loja.negocio.Venda;
 
 public class RepoProdutoArray implements IRepoProduto {
 
     private final List<Produto> produtos = new ArrayList<>();
-    private int codigo = 1;
+    private final int codigo = 1;
 
     @Override
     public boolean inserir(Produto produto) {
-        if (produto != null) {
-            for (int i = 0; i < produtos.size(); i++) {
-                if (produtos.get(i).getNome().equals(produto.getNome())) {
-                    return false;
-                }
-            }
-            produto.setCodigo(codigo);
-            produtos.add(produto);
-            codigo++;
-            return true;
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conexao.prepareStatement("INSERT INTO produto (nomeProduto, preco, quantidadeEstoque, idMarca) values (?, ?, ?, ?)");
+            stmt.setString(1, produto.getNome());
+            stmt.setDouble(2, produto.getPreco());
+            stmt.setInt(3, produto.getQuantEstoque());
+            stmt.setInt(4, produto.getMarca());
+
+            int executeUpdate = stmt.executeUpdate();
+
+            return executeUpdate == 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(RepoProdutoArray.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            Conexao.fecharConexao(conexao, stmt);
         }
         return false;
     }
 
     @Override
     public boolean excluir(int codigo) {
-        for (int i = 0; i < produtos.size(); i++) {
-            if (produtos.get(i).getCodigo() == codigo && produtos.get(i).getVendido() != 1) {
-                produtos.remove(i);
-                return true;
-            } else {
-                if (produtos.get(i).getCodigo() == codigo && produtos.get(i).getVendido() == 1) {
-                    produtos.get(i).setExcluido(1);
-                    return true;
-                }
-            }
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conexao.prepareStatement("DELETE FROM produto WHERE idProduto = ?");
+            stmt.setInt(1, codigo);
+
+            int executeUpdate = stmt.executeUpdate();
+
+            return executeUpdate == 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(RepoProdutoArray.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            Conexao.fecharConexao(conexao, stmt);
         }
         return false;
     }
 
     @Override
     public boolean alterar(Produto produto, int codigo) {
-        if (produto != null) {
-            for (int i = 0; i < produtos.size(); i++) {
-                if (produtos.get(i).getCodigo() == codigo) {
-                    produtos.set(i, produto);
-                    return true;
-                }
-            }
-            return false;
-        } else {
-            return false;
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conexao.prepareStatement("UPDATE produto SET nomeProduto = ?, preco = ?, quantidadeEstoque = ?, idMarca = ? WHERE idProduto = ?");
+            stmt.setString(1, produto.getNome());
+            stmt.setDouble(2, produto.getPreco());
+            stmt.setInt(3, produto.getQuantEstoque());
+            stmt.setInt(4, produto.getMarca());
+            stmt.setInt(5, codigo);
+
+            int executeUpdate = stmt.executeUpdate();
+
+            return executeUpdate == 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(RepoProdutoArray.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            Conexao.fecharConexao(conexao, stmt);
         }
+        return false;
     }
 
     @Override
     public Produto buscar(int codigo) {
-        for (int i = 0; i < produtos.size(); i++) {
-            if (produtos.get(i).getCodigo() == codigo) {
-                return produtos.get(i);
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Produto produto = null;
+
+        try {
+            stmt = conexao.prepareStatement("SELECT * FROM Produto WHERE idProduto = ?");
+            stmt.setInt(1, codigo);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                produto = new Produto(rs.getInt("idProduto"), rs.getString("nomeProduto"), rs.getInt("idMarca"), rs.getDouble("preco"), rs.getInt("quantidadeEstoque"));
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(RepoProdutoArray.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            Conexao.fecharConexao(conexao, stmt, rs);
         }
-        return null;
+
+        return produto;
     }
 
     @Override
     public List<Produto> listar() {
-        if (produtos != null) {
-            produtos.forEach((_item) -> {
-                for (int i = 0; i < produtos.size() - 1; i++) {
-                    if (produtos.get(i + 1) != null
-                            && produtos.get(i).getCodigo() > produtos.get(i + 1).getCodigo()) {
-                        Produto aux = produtos.get(i);
-                        produtos.set(i, produtos.get(i + 1));
-                        produtos.set(i + 1, aux);
-                    }
-                }
-            });
-            return produtos;
-        } else {
-            return null;
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Produto> produtos1 = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement("SELECT * FROM produto");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Produto produto = new Produto(rs.getInt("idProduto"), rs.getString("nomeProduto"), rs.getInt("idMarca"), rs.getDouble("preco"), rs.getInt("quantidadeEstoque"));
+                produtos1.add(produto);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RepoProdutoArray.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            Conexao.fecharConexao(conexao, stmt, rs);
         }
+
+        return produtos1;
     }
 
     @Override
@@ -112,9 +157,9 @@ public class RepoProdutoArray implements IRepoProduto {
         }
         return null;
     }
-    
+
     @Override
-     public List<Produto> FiltrarNome(String nome) {
+    public List<Produto> FiltrarNome(String nome) {
         if (nome != null) {
             List<Produto> prod = new ArrayList<>();
             for (Produto produto : produtos) {
@@ -128,22 +173,28 @@ public class RepoProdutoArray implements IRepoProduto {
     }
 
     @Override
-    public boolean abaterEstoque(Venda abaterEstoque) {
-        if (abaterEstoque != null && produtos != null) {
-            int abateu = 0;
-            for (Item itensVendido : abaterEstoque.getItensVendidos()) {
-                for (Produto produto : produtos) {
-                    if (itensVendido != null && produto != null && itensVendido.getProduto().getNome().equals(produto.getNome()) && itensVendido.getQuantidade() <= produto.getQuantEstoque()) {
-                        produto.setQuantEstoque(produto.getQuantEstoque() - itensVendido.getQuantidade());
-                        abateu = 1;
-                    }
-                }
+    public boolean abaterEstoque(List<Item> itens) {
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement stmt = null;
+
+        try {
+            for (Item item : itens) {
+                Produto prod = this.buscar(item.getProduto());
+                if (prod.getQuantEstoque() - item.getQuantidade() >= 0) {
+                    stmt = conexao.prepareStatement("UPDATE produto SET quantidadeEstoque = ? WHERE idProduto = ?");
+                    stmt.setInt(1, prod.getQuantEstoque() - item.getQuantidade());
+                    stmt.setInt(2, prod.getCodigo());
+
+                    stmt.executeUpdate();
+                }else
+                    return false;
             }
-            if (abateu == 1) {
-                return true;
-            }
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(RepoProdutoArray.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            Conexao.fecharConexao(conexao, stmt);
         }
         return false;
     }
-
 }

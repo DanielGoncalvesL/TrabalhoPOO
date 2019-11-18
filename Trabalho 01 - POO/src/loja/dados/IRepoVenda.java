@@ -17,22 +17,78 @@ import loja.negocio.Venda;
  */
 public interface IRepoVenda {
 
-    Venda concluirVenda(String nomeCliente);
+    /**
+     *
+     * @param produto
+     * @param quantidade
+     * @return
+     */
+    public Item criarItem(Produto produto, int quantidade);
 
-    Item criarItem(Produto produto, double quantidade);
+    /**
+     *
+     * @param item
+     * @return
+     */
+    public boolean inserirCarrinho(Item item);
 
-    boolean excluirItemCarrinho(int codigo);
+    /**
+     *
+     * @param nome
+     * @return
+     */
+    public int concluirVenda(String nome);
 
-    boolean inserirCarrinho(Item item);
+    /**
+     *
+     * @param idVenda
+     * @return
+     */
+    public List<Item> buscarItens(int idVenda);
 
-    void limparCarrinho();
+    /**
+     *
+     */
+    public void limparCarrinho();
 
-    Carrinho listarCarrinho();
+    /**
+     *
+     * @param i
+     */
+    public void limparCarrinho(int i);
 
-    Venda listarCodigo(int codigo);
+    /**
+     *
+     * @param codigo
+     * @return
+     */
+    public boolean excluirItemCarrinho(int codigo);
 
-    List<Venda> listarData(String data);
+    /**
+     *
+     * @return
+     */
+    public List<Venda> listarVendas();
 
-    List<Venda> listarVenda();
+    /**
+     *
+     * @param data
+     * @return
+     */
+    public List<Venda> listarData(String data);
+
+    /**
+     *
+     * @return
+     */
+    public Carrinho listarCarrinho();
+
+    /**
+     *
+     * @param idItem
+     * @return
+     */
+    public Item buscarItem(int idItem);
     
+    public Venda buscarVenda(int idVenda);
 }

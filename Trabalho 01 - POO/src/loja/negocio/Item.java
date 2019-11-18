@@ -1,32 +1,78 @@
 package loja.negocio;
 
 public class Item {
-
-    private Produto produto;
+    
+    private int id;
+    private int produto;
     private double preco;
-    private double quantidade;
+    private int quantidade;
 
-    public Produto getProduto() {
+   public Item(int id, double preco, int quantidade, int produto){
+       this.id = id;
+       this.preco = preco;
+       this.produto = produto;
+       this.quantidade = quantidade;  
+   }
+    
+    /**
+     *
+     * @return
+     */
+    public int getProduto() {
         return produto;
     }
 
-    public void setProduto(Produto produto) {
+    /**
+     *
+     * @param produto
+     */
+    public void setProduto(int produto) {
         this.produto = produto;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPreco() {
         return preco;
     }
 
+    /**
+     *
+     * @param preco
+     */
     public void setPreco(double preco) {
         this.preco = preco;
     }
 
-    public double getQuantidade() {
+    /**
+     *
+     * @return
+     */
+    public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(double quantidade) {
+    /**
+     *
+     * @param quantidade
+     */
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }

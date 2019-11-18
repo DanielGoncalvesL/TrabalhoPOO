@@ -42,8 +42,9 @@ public class ControladorProduto {
     public List<Produto> FiltrarNome(String nome) {
         return reproduto.FiltrarNome(nome);
     }
-
-    public boolean abaterEstoque(Venda abaterEstoque) {
-        return reproduto.abaterEstoque(abaterEstoque);
+    
+    public boolean abaterEstoque(List<Item> item){
+        return reproduto.abaterEstoque(item);
     }
+
 }

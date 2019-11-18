@@ -19,7 +19,6 @@ public final class Sistema {
         cProduto = new ControladorProduto(repoProduto);
         cVenda = new ControladorVenda(repovenda);
         cMarca = new ControladorMarca(repoMarca);
-        init();
     }
 
     public static Sistema getInstance(IRepoProduto repoProduto, IRepoVenda repovenda, IRepoMarca repoMarca) {
@@ -68,55 +67,6 @@ public final class Sistema {
         return cProduto.FiltrarNome(nome);
     }
 
-    public Item criarItem(Produto produto, double quantidade) {
-        return cVenda.criarItem(produto, quantidade);
-    }
-
-    public boolean inserirCarrinho(Item item) {
-        return cVenda.inserirCarrinho(item);
-    }
-
-    public List<Venda> listarVenda() {
-        return cVenda.listar();
-    }
-
-    public boolean concluirVenda(String nomeCliente) {
-        Venda abaterEstoque = cVenda.concluirVenda(nomeCliente);
-        return cProduto.abaterEstoque(abaterEstoque);
-    }
-
-    public List<Venda> listarData(String data) {
-        return cVenda.listarData(data);
-    }
-
-    public Venda listarCodigo(int codigo) {
-        return cVenda.listarCodigo(codigo);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Carrinho listarCarrinho() {
-        return cVenda.listarCarrinho();
-    }
-
-    /**
-     *
-     */
-    public void limparCarrinho() {
-        cVenda.limparCarrinho();
-    }
-
-    /**
-     *
-     * @param codigo
-     * @return
-     */
-    public boolean excluirItemCarrinho(int codigo) {
-        return cVenda.excluirItemCarrinho(codigo);
-    }
-
     /**
      *
      * @param marca
@@ -147,6 +97,48 @@ public final class Sistema {
         return cMarca.buscarNome(nome);
     }
 
+    public Item criarItem(Produto produto, int quantidade) {
+        return cVenda.criarItem(produto, quantidade);
+    }
+
+    public boolean inserirCarrinho(Item item) {
+        return cVenda.inserirCarrinho(item);
+    }
+
+    public boolean excluirItemCarrinho(int codigo) {
+        return cVenda.excluirItemCarrinho(codigo);
+    }
+
+    public void limparCarrinho() {
+        cVenda.limparCarrinho();
+    }
+
+    public List<Venda> listarVendas() {
+        return cVenda.listarVendas();
+    }
+
+    public List<Venda> listarData(String data) {
+        return cVenda.listarData(data);
+    }
+
+    public Carrinho listarCarrinho() {
+        return cVenda.listarCarrinho();
+    }
+
+    public boolean concluirVenda(String nome) {
+        int i = cVenda.concluirVenda(nome);
+        List<Item> itens = buscarItens(i);
+        return cProduto.abaterEstoque(itens);
+    }
+    
+    public List<Item> buscarItens(int id){
+        return cVenda.buscarItens(id);
+    }
+    
+    public Venda buscarVenda(int idVenda){
+        return cVenda.buscarVenda(idVenda);
+    }
+
     public void init() {
         this.inserirMarca(new Marca("Supang", "Representante Comercial"));
         this.inserirMarca(new Marca("Yoki", "Representante Comercial"));
@@ -160,15 +152,17 @@ public final class Sistema {
         this.inserir(new Produto("Canjiquinha", 2, 2, 30));
         this.inserir(new Produto("Açucar", 4, 8, 30));
 
-        this.inserirCarrinho(criarItem(buscarNome("Arroz"), 1));
-        this.inserirCarrinho(criarItem(buscarNome("Canjiquinha"), 1));
+        this.inserirCarrinho(criarItem(buscar(1), 1));
+        this.inserirCarrinho(criarItem(buscar(5), 1));
         this.concluirVenda("Daniel");
 
-        this.inserirCarrinho(criarItem(buscarNome("Feij�o"), 1));
+        this.inserirCarrinho(criarItem(buscar(2), 1));
         this.concluirVenda("Luciano");
+
     }
 
     public Marca buscarMarca(int marca) {
-       return cMarca.buscarMarca(marca);
+        return cMarca.buscarMarca(marca);
     }
+
 }

@@ -2,50 +2,52 @@ package loja.negocio;
 
 import java.util.List;
 import loja.dados.IRepoVenda;
-import loja.dados.RepoVendaArray;
 
 public class ControladorVenda {
 
-    private IRepoVenda repovenda;
+    private final IRepoVenda repoVenda;
 
-    public ControladorVenda(IRepoVenda repoVenda) {
-        this.repovenda = repoVenda;
+    public ControladorVenda(IRepoVenda repoProduto) {
+        this.repoVenda = repoProduto;
+    }
+
+    public Item criarItem(Produto produto, int quantidade) {
+        return repoVenda.criarItem(produto, quantidade);
     }
 
     public boolean inserirCarrinho(Item item) {
-        return repovenda.inserirCarrinho(item);
+        return repoVenda.inserirCarrinho(item);
     }
 
-    public Item criarItem(Produto produto, double quantidade) {
-        return repovenda.criarItem(produto, quantidade);
+    public int concluirVenda(String nome) {
+        return repoVenda.concluirVenda(nome);
     }
 
-    public List<Venda> listar() {
-        return repovenda.listarVenda();
-    }
-
-    public Venda concluirVenda(String nomeCliente) {
-        return repovenda.concluirVenda(nomeCliente);
-    }
-
-    public List<Venda> listarData(String data) {
-        return repovenda.listarData(data);
-    }
-
-    public Venda listarCodigo(int codigo) {
-        return repovenda.listarCodigo(codigo);
-    }
-
-    public Carrinho listarCarrinho() {
-        return repovenda.listarCarrinho();
-    }
-
-    public void limparCarrinho() {
-        repovenda.limparCarrinho();
+    public List<Item> buscarItens(int idVenda) {
+        return repoVenda.buscarItens(idVenda);
     }
 
     public boolean excluirItemCarrinho(int codigo) {
-        return repovenda.excluirItemCarrinho(codigo);
+        return repoVenda.excluirItemCarrinho(codigo);
     }
 
+    public void limparCarrinho() {
+        repoVenda.limparCarrinho();
+    }
+
+    public List<Venda> listarVendas() {
+        return repoVenda.listarVendas();
+    }
+
+    public List<Venda> listarData(String data) {
+        return repoVenda.listarData(data);
+    }
+
+    public Carrinho listarCarrinho() {
+        return repoVenda.listarCarrinho();
+    }
+    
+    public Venda buscarVenda(int idVenda){
+        return repoVenda.buscarVenda(idVenda);
+    }
 }

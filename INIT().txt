@@ -1,0 +1,23 @@
+  this.inserirMarca(new Marca("Supang", "Representante Comercial"));
+        this.inserirMarca(new Marca("Yoki", "Representante Comercial"));
+        this.inserirMarca(new Marca("Renata", "Representante Comercial"));
+        this.inserirMarca(new Marca("União", "Representante Comercial"));
+        this.inserirMarca(new Marca("Rei Arthur", "Representante Comercial"));
+
+        this.inserir(new Produto("Arroz", 5, 15, 30));
+        this.inserir(new Produto("Feijão", 1, 3.5, 30));
+        this.inserir(new Produto("Macarrão", 3, 4, 30));
+        this.inserir(new Produto("Canjiquinha", 2, 2, 30));
+        this.inserir(new Produto("Açucar", 4, 8, 30));
+
+        this.inserirCarrinho(criarItem(buscarNome("Arroz"), 1));
+        this.inserirCarrinho(criarItem(buscarNome("Canjiquinha"), 1));
+        this.concluirVenda("Daniel");
+
+        this.inserirCarrinho(criarItem(buscarNome("Feij�o"), 1));
+        this.concluirVenda("Luciano");
+    }
+
+    public Marca buscarMarca(int marca) {
+       return cMarca.buscarMarca(marca);
+    }

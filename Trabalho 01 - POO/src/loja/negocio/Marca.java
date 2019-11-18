@@ -18,6 +18,12 @@ public class Marca {
         this.nome = nome;
         this.RepresentanteComercial = representanteComercial;
     }
+    
+     public Marca(int id, String nome, String representanteComercial) {
+         this.id = id;
+         this.nome = nome;
+        this.RepresentanteComercial = representanteComercial;
+    }
 
     /**
      * @return the id   
@@ -64,5 +70,11 @@ public class Marca {
      */
     public void setRepresentanteComercial(String RepresentanteComercial) {
         this.RepresentanteComercial = RepresentanteComercial;
+    }
+    
+     @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Marca)) return false;
+        return obj == this || nome.equals(((Marca) obj).nome);
     }
 }

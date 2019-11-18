@@ -41,10 +41,10 @@ public class DataVenda extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Por Data");
 
-        jLabel1.setText("Informe a Data da Venda");
+        jLabel1.setText("Informe a Data da Venda(yyyy/mm/dd)");
 
         try {
-            tfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            tfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class DataVenda extends javax.swing.JDialog {
                         .addComponent(btListar))
                     .addComponent(tfData)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +100,7 @@ public class DataVenda extends javax.swing.JDialog {
     private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
         // TODO add your handling code here:
         boolean ok = true;
-        if (tfData.getText().equals("  /  /    ")) {
+        if (tfData.getText().equals("    /  /  ")) {
             ok = false;
             tfData.setBackground(Color.PINK);
             JOptionPane.showMessageDialog(this, "Preencha os campos destacados!");

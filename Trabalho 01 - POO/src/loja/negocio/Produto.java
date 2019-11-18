@@ -6,7 +6,7 @@ public class Produto {
     private String nome;
     private int marca;
     private double preco;
-    private double quantEstoque;
+    private int quantEstoque;
     private int Vendido;
     private int Excluido;
     
@@ -35,7 +35,7 @@ public class Produto {
      * @param valor
      * @param quantEstoque
      */
-    public Produto(String nome, int marca, double valor, double quantEstoque) {
+    public Produto(String nome, int marca, double valor, int quantEstoque) {
         this.nome = nome;
         this.marca = marca;
         this.preco = valor;
@@ -50,7 +50,7 @@ public class Produto {
      * @param valor
      * @param quant
      */
-    public Produto(int codigo, String nome, int marca, double valor, double quant) {
+    public Produto(int codigo, String nome, int marca, double valor, int quant) {
         // TODO Auto-generated constructor stub
         this.codigo = codigo;
         this.nome = nome;
@@ -92,18 +92,22 @@ public class Produto {
     }
 
     public double getPreco() {
-        return preco;
+        return this.preco;
     }
 
     public void setPreco(double preco) {
         this.preco = preco;
     }
 
-    public double getQuantEstoque() {
-        return quantEstoque;
+    /**
+     *
+     * @return
+     */
+    public int getQuantEstoque() {
+        return this.quantEstoque;
     }
 
-    public void setQuantEstoque(double d) {
+    public void setQuantEstoque(int d) {
         this.quantEstoque = d;
     }
 }

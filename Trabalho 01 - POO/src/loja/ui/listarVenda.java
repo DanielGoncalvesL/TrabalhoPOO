@@ -7,7 +7,6 @@ package loja.ui;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import loja.negocio.Sistema;
@@ -73,6 +72,11 @@ public class listarVenda extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbListar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbListarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbListar);
 
         btSair.setBackground(new java.awt.Color(255, 0, 51));
@@ -121,8 +125,16 @@ public class listarVenda extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
+    private void tbListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbListarMouseClicked
+        // TODO add your handling code here:
+        int cod = (int) tbListar.getValueAt(tbListar.getSelectedRow(), 0);
+        DetalharVenda dtvd = new DetalharVenda(cod);
+        dtvd.setLocationRelativeTo(null);
+        dtvd.setVisible(true);
+    }//GEN-LAST:event_tbListarMouseClicked
+
     private void CarregarVendas() {
-        vendas = (ArrayList<Venda>) sis.listarVenda();
+        vendas = (ArrayList<Venda>) sis.listarVendas();
         DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
         modelo.setNumRows(0);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

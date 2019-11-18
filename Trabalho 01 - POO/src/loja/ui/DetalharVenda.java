@@ -18,21 +18,26 @@ import loja.negocio.Venda;
  *
  * @author Daniel
  */
-public class BuscarVenda extends javax.swing.JInternalFrame {
-
+public class DetalharVenda extends javax.swing.JDialog {
     private Sistema sis;
-    private Venda venda;
 
     /**
-     * Creates new form BuscarVenda
-     *
-     * @param Codigo
+     * Creates new form DetalharVenda
      */
-    public BuscarVenda(int Codigo) {
+    public DetalharVenda(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+    }
+
+    /**
+     *
+     * @param codigo
+     */
+    public DetalharVenda(int codigo) {
         sis = Sistema.getInstance();
         initComponents();
-        CarregarVendas(Codigo);
-        CarregarProdutos(Codigo);
+        CarregarVendas(codigo);
+        CarregarProdutos(codigo);
     }
 
     /**
@@ -44,37 +49,13 @@ public class BuscarVenda extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbListar = new javax.swing.JTable();
-        btSair = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbListarProdutos = new javax.swing.JTable();
-
-        setBorder(null);
-        setTitle("Buscar Produto");
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/zoom.png"))); // NOI18N
-
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        tbListar.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Data da Venda", "Valor da Venda", "Nome Cliente"
-            }
-        ));
-        jScrollPane1.setViewportView(tbListar);
-
-        btSair.setBackground(new java.awt.Color(255, 0, 51));
-        btSair.setText("Sair");
-        btSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSairActionPerformed(evt);
-            }
-        });
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbListar = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbListarProdutos1 = new javax.swing.JTable();
+        btSair = new javax.swing.JButton();
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -96,47 +77,72 @@ public class BuscarVenda extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tbListarProdutos);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btSair)
-                .addGap(16, 16, 16))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(btSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tbListar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Data da Venda", "Valor da Venda", "Nome Cliente"
+            }
+        ));
+        jScrollPane1.setViewportView(tbListar);
+
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tbListarProdutos1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Marca", "Preço", "Quantidade"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tbListarProdutos1);
+
+        btSair.setBackground(new java.awt.Color(255, 0, 51));
+        btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btSair)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btSair)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
 
         pack();
@@ -147,8 +153,9 @@ public class BuscarVenda extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
+
     private void CarregarVendas(int Codigo) {
-        venda = sis.buscarVenda(Codigo);
+        Venda venda = sis.buscarVenda(Codigo);
         if (venda != null) {
             DefaultTableModel modelo = (DefaultTableModel) tbListar.getModel();
             modelo.setNumRows(0);
@@ -167,14 +174,14 @@ public class BuscarVenda extends javax.swing.JInternalFrame {
 
     private void CarregarProdutos(int Codigo) {
          List<Item> itens = sis.buscarItens(Codigo);
-        if (venda != null) {
-            DefaultTableModel modelo = (DefaultTableModel) tbListarProdutos.getModel();
+        if (itens != null) {
+            DefaultTableModel modelo = (DefaultTableModel) tbListarProdutos1.getModel();
             modelo.setNumRows(0);
             for (Item itensVendido : itens) {
                 Produto prod = sis.buscar(itensVendido.getProduto());
                 modelo.addRow(new Object[]{
-                    prod.getMarca(),
                     prod.getNome(),
+                    sis.buscarMarca(prod.getMarca()),
                     itensVendido.getPreco(),
                     itensVendido.getQuantidade()
                 });
@@ -183,14 +190,14 @@ public class BuscarVenda extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Não tem Venda com esse Código!");
         }
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSair;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tbListar;
     private javax.swing.JTable tbListarProdutos;
+    private javax.swing.JTable tbListarProdutos1;
     // End of variables declaration//GEN-END:variables
 }

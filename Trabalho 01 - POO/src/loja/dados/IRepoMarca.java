@@ -14,7 +14,7 @@ import loja.negocio.Marca;
  */
 public interface IRepoMarca {
 
-    boolean alterar(Marca marca, int codigo);
+    public boolean alterar(Marca marca, int codigo);
 
     boolean excluir(int codigo);
 

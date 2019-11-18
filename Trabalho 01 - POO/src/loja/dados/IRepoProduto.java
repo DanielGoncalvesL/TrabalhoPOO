@@ -6,6 +6,7 @@
 package loja.dados;
 
 import java.util.List;
+import loja.negocio.Item;
 import loja.negocio.Produto;
 import loja.negocio.Venda;
 
@@ -16,8 +17,6 @@ import loja.negocio.Venda;
 public interface IRepoProduto{
 
     List<Produto> FiltrarNome(String nome);
-
-    boolean abaterEstoque(Venda abaterEstoque);
 
     boolean alterar(Produto produto, int codigo);
 
@@ -33,4 +32,5 @@ public interface IRepoProduto{
 
     List<Produto> listarNome();
     
+    boolean abaterEstoque(List<Item> item);
 }

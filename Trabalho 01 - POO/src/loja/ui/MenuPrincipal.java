@@ -5,8 +5,6 @@
  */
 package loja.ui;
 
-import javax.swing.JOptionPane;
-import loja.negocio.Produto;
 import loja.negocio.Sistema;
 
 /**
@@ -20,7 +18,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         sis = Sistema.getInstance();
-        sis.limparCarrinho();
         initComponents();
     }
 
@@ -40,7 +37,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         inserirMarca = new javax.swing.JMenuItem();
         listarVendas = new javax.swing.JMenuItem();
         listarVendasDia = new javax.swing.JMenuItem();
-        buscarVenda = new javax.swing.JMenuItem();
         funcionario = new javax.swing.JMenu();
         realizarVenda = new javax.swing.JMenuItem();
 
@@ -98,15 +94,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         administrador.add(listarVendasDia);
 
-        buscarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/zoom.png"))); // NOI18N
-        buscarVenda.setText("Buscar Venda");
-        buscarVenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarVendaActionPerformed(evt);
-            }
-        });
-        administrador.add(buscarVenda);
-
         jMenuBar1.add(administrador);
 
         funcionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
@@ -158,18 +145,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         CadUser.setVisible(true);
     }//GEN-LAST:event_inserirProdutoActionPerformed
 
-    private void buscarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarVendaActionPerformed
-        // TODO add your handling code here:
-        LimparJanelas();
-        CodigoBuscar codBus = new CodigoBuscar(new javax.swing.JFrame(), true);
-        codBus.setLocationRelativeTo(null);
-        codBus.setVisible(true);
-        ReiniciarJanela();
-        BuscarVenda listar = new BuscarVenda(codBus.getCodigo());
-        jPanel1.add(listar);
-        listar.setVisible(true);
-    }//GEN-LAST:event_buscarVendaActionPerformed
-
     private void listarVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarVendasActionPerformed
         // TODO add your handling code here:
         LimparJanelas();
@@ -212,7 +187,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu administrador;
-    private javax.swing.JMenuItem buscarVenda;
     private javax.swing.JMenu funcionario;
     private javax.swing.JMenuItem inserirMarca;
     private javax.swing.JMenuItem inserirProduto;
